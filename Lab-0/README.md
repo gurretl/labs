@@ -1,5 +1,5 @@
 # About
-Date : XX Xxx XXXX
+Date : XX Xxx XXXX  
 Author: Lionel Gurret
 # LinkedIn article related
 # Prerequesites
