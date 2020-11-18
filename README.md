@@ -12,6 +12,6 @@ Lionel
 # How to download this repo:
 `git clone https://github.com/gurretl/labs.git`
 
-# Lab 1
-##Description
+## Lab 1
+### Description
 Install Prometheus / Grafana Stack on Minikube with Helm
