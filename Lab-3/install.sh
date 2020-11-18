@@ -74,7 +74,7 @@ echo "User : admin"
 echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 echo ""
 echo "!!!!!!"
-echo "WARNING : PLEASE WAIT EVERYTHING IS UP BEFORE DEBUGGING (kubectl -n metrics get all)"
+echo "WARNING : PLEASE WAIT EVERYTHING IS UP BEFORE DEBUGGING (watch kubectl -n metrics get deployments/grafana)"
 echo "!!!!!!"
 echo ""
 kubectl -n metrics get deployments/grafana
