@@ -389,7 +389,7 @@ datasources:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: PROMETHEUS_URL
+      url: https://2886795318-30158-cykoria03.environments.katacoda.com/
       isDefault: true
 
 #  datasources.yaml:
