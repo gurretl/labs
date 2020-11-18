@@ -37,6 +37,17 @@ helm upgrade --install grafana -f grafana.yml -n metrics grafana/grafana
 kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np -n metrics
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np -n metrics
 
+# Display end of script
+echo "*************************************************************************************************************"
+echo "*************************************************************************************************************"
+
+# Get Grafana Endpoint
+PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+
+echo "Port Graf: $PORT_GRAF"
+echo "Port Prom: $PORT_PROM"
+
 # kubectl -n metrics get services -o yaml|grep -i nodePort:
 # Display secret to use 
 echo "You can login Grafana using admin user and the following password:"
