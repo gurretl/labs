@@ -15,13 +15,13 @@ Lionel
 `git clone https://github.com/gurretl/labs.git`
 
 ## Lab 0
-Directory template I use for each Lab (To ignore)
+**To ignore** : Directory template I use for each Lab
 
 ## Lab 1
-Vagrant : install VMs with Vagrant on VirtualBox
+**Vagrant** : install VMs with Vagrant on VirtualBox
 
 ## Lab 2
-Ansible : install Minikube from Ansible Controller
+**Ansible** : install Minikube from Ansible Controller
 
 ## Lab 3
-Helm : Install Prometheus / Grafana Stack on Minikube with Helm
+**Helm** : Install Prometheus / Grafana Stack on Minikube with Helm
