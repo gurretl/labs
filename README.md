@@ -9,6 +9,6 @@ Thanks for your interest.
 
 Lionel
 
-## Lab 1
-###Description
+# Lab 1
+##Description
 Install Prometheus / Grafana Stack on Minikube with Helm
