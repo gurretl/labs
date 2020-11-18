@@ -5,9 +5,12 @@
 
 # Ask for Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)
 echo "Please provie Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)"
-read -p "You can get it by clicking on + / Select port to view on Host 1: "answer
+read -p "You can get it by clicking on + / Select port to view on Host 1: " answer
 echo "Answer : $answer"
-exit
+
+# Split URL to get 2 parts (Used in grafana.yml config to link prometheus)
+url_first=$(echo $answer|awk -F '-' {'print $1'})
+url_second=$(echo $answer|awk -F '-' {'print $2'})
 
 # Install Helm 3.4.1
 (cd && wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz)
@@ -43,19 +46,24 @@ helm upgrade --install grafana -f grafana.yml -n metrics grafana/grafana
 kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np -n metrics
 kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np -n metrics
 
+# Get Grafana / Prometheus Endpoint
+PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+
+# Replace Prometheus URL in grafana.yml config file
+echo "URL PROMETHEUS: $first-$PORT_PROM-$second"
+
 # Display end of script
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
-
-# Get Grafana Endpoint
-PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
-PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 
 echo "You can logon Prometheus Web Interface through this port : $PORT_PROM"
 
 # kubectl -n metrics get services -o yaml|grep -i nodePort:
 # Display secret to use 
 echo "You can login Grafana using admin user and the following password (port $PORT_GRAF):"
-kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+echo "URL : $first-$PORT_GRAF-$second"
+echo "User : admin"
+echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 
