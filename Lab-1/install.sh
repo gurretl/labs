@@ -3,9 +3,6 @@
 # Lionel Gurret
 # 18th Nov 2020
 
-#url: PROMETHEUS_URL in grafana.yml
-sed -i 's,PROMETHEUS_URL,http://google.com,' grafana.yml
-
 # Ask for Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)
 echo "Please provie Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)"
 read -p "You can get it by clicking on + / Select port to view on Host 1: " answer
@@ -50,8 +47,8 @@ kubectl expose service prometheus-server --type=NodePort --target-port=9090 --na
 PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 
 # With Prometheus port, we can configure grafana.yml
-$PROMETHEUS_URL=$first-$PORT_PROM-$second
-sed -i 's,PROMETHEUS_URL,$PROMETHEUS_URL,' grafana.yml
+$PROMETHEUS_URL="$url_first-$PORT_PROM-$url_second"
+sed -i "s,PROMETHEUS_URL,$PROMETHEUS_URL," grafana.yml
 
 # Install (or upgrade) Grafana  (adapt yml file if you use custom files)
 helm upgrade --install grafana -f grafana.yml -n metrics grafana/grafana
@@ -60,9 +57,9 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
-
+$GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
 # Replace Prometheus URL in grafana.yml config file
-echo "URL PROMETHEUS: $first-$PORT_PROM-$second"
+echo "URL PROMETHEUS: $url_first-$PORT_PROM-$url_second"
 
 # Display end of script
 echo "*************************************************************************************************************"
@@ -74,7 +71,7 @@ echo "You can logon Prometheus Web Interface through this url : $PROMETHEUS_URL"
 # kubectl -n metrics get services -o yaml|grep -i nodePort:
 # Display secret to use 
 echo "You can login Grafana using admin user and the following password (port $PORT_GRAF):"
-echo "URL : $first-$PORT_GRAF-$second"
+echo "URL : $url_first-$PORT_GRAF-$url_second"
 echo "User : admin"
 echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 
