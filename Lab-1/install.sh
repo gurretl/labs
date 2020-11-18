@@ -69,3 +69,4 @@ echo "You can login Grafana using admin user and the following password (port $P
 echo "URL : $url_first-$PORT_GRAF-$url_second"
 echo "User : admin"
 echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
+echo "WARNING : PLEASE WAIT EVERYTHING IS UP BEFORE DEBUGGING (kubectl -n metrics get all)"

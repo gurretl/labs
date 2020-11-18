@@ -383,7 +383,15 @@ plugins: []
 ## Configure grafana datasources
 ## ref: http://docs.grafana.org/administration/provisioning/#datasources
 ##
-datasources: {}
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: PROMETHEUS_URL
+      isDefault: true
+#datasources: {}
 #  datasources.yaml:
 #    apiVersion: 1
 #    datasources:
@@ -424,7 +432,19 @@ notifiers: {}
 ##
 ## `path` must be /var/lib/grafana/dashboards/<provider_name>
 ##
-dashboardProviders: {}
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+#dashboardProviders: {}
 #  dashboardproviders.yaml:
 #    apiVersion: 1
 #    providers:
@@ -443,7 +463,17 @@ dashboardProviders: {}
 ##
 ## dashboards per provider, use provider name as key.
 ##
-dashboards: {}
+dashboards:
+   default:
+     k8s-overview:
+       gnetId: 8685
+       revision: 1
+       datasource: Prometheus
+     k8s-details:
+       gnetId: 8721
+       revision: 3
+       datasource: Prometheus
+#dashboards: {}
   # default:
   #   some-dashboard:
   #     json: |
