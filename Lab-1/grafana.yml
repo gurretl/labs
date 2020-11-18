@@ -389,7 +389,7 @@ datasources:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: PROMETHEUS_URL
+      url: https://2886795308-31022-ollie07.environments.katacoda.com/
       isDefault: true
 #datasources: {}
 #  datasources.yaml:
