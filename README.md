@@ -2,10 +2,12 @@
 
 In this repository, you will find all sources I used in my labs.
 
-All my labs are available with my Linkedin articles, following this link :
+They are availables, following this link :
 https://gurret-lionel.weebly.com/
 
-Thanks for your interest.
+You will also find all my LinkedIn articles.
+
+Thanks for your interest !
 
 Lionel
 
@@ -13,13 +15,13 @@ Lionel
 `git clone https://github.com/gurretl/labs.git`
 
 ## Lab 0
-Template I use for each Lab (To ignore)
+Directory template I use for each Lab (To ignore)
 
 ## Lab 1
-Install VMs with Vagrant on VirtualBox
+Vagrant : install VMs with Vagrant on VirtualBox
 
 ## Lab 2
-Ansible for beginners: install minikube from Ansible Controller
+Ansible : install Minikube from Ansible Controller
 
 ## Lab 3
-Install Prometheus / Grafana Stack on Minikube with Helm
+Helm : Install Prometheus / Grafana Stack on Minikube with Helm

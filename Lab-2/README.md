@@ -1,2 +1,6 @@
-# How to launch the Lab ?
-Check the following LinkedIn Article : 
+# About
+Date : XX Xxx XXXX
+Author: Lionel Gurret
+# LinkedIn article related
+# Prerequesites
+# How to launch the Lab
