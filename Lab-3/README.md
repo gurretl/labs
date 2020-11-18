@@ -8,6 +8,6 @@ This script is designed for Minikube !
 (https://kubernetes.io/fr/docs/tutorials/hello-minikube/ - Click on Launch Terminal)
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
-`cd labs/Lab-1`  
+`cd labs/Lab-3`  
 `./install.sh`
 
