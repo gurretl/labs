@@ -1,4 +1,4 @@
-# My Labs
+# All My Labs
 
 In this repository, you will find all sources I used in my labs.
 
