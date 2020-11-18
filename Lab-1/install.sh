@@ -19,7 +19,7 @@ url_second=$(echo $answer|awk -F '-' {'print $2'})
 # Install k9s
 (cd && wget https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz)
 (cd && tar -xzf k9s_Linux_x86_64.tar.gz)
-(mv && k9s /usr/local/bin/k9s)
+(cd && mv k9s /usr/local/bin/k9s)
 
 # Install repo prometheus-community
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -48,8 +48,6 @@ PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nod
 
 # With Prometheus port, we can configure grafana.yml
 #$PROMETHEUS_URL="$url_first-$PORT_PROM-$url_second"
-echo "URL: $url_first-$PORT_PROM-$url_second"
-
 sed -i "s,PROMETHEUS_URL,$url_first-$PORT_PROM-$url_second," grafana.yml
 
 # Install (or upgrade) Grafana  (adapt yml file if you use custom files)
@@ -60,18 +58,13 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 $GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
-# Replace Prometheus URL in grafana.yml config file
-echo "URL PROMETHEUS: $url_first-$PORT_PROM-$url_second"
 
-# Display end of script
+# Display all information
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
-
 echo "You can logon Prometheus Web Interface through this url : $url_first-$PORT_PROM-$url_second"
-
-# kubectl -n metrics get services -o yaml|grep -i nodePort:
-# Display secret to use 
+echo ""
 echo "You can login Grafana using admin user and the following password (port $PORT_GRAF):"
 echo "URL : $url_first-$PORT_GRAF-$url_second"
 echo "User : admin"
