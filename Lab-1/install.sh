@@ -3,6 +3,12 @@
 # Lionel Gurret
 # 18th Nov 2020
 
+# Ask for Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)
+echo "Please provie Minikube public URL (ex: https://2886795331-cykoria04.environments.katacoda.com/)"
+read -p "You can get it by clicking on + / Select port to view on Host 1: "answer
+echo "Answer : $answer"
+exit
+
 # Install Helm 3.4.1
 (cd && wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz)
 (cd && tar -zxvf helm-v3.4.1-linux-amd64.tar.gz)
