@@ -39,17 +39,17 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 
 # Display end of script
 echo "*************************************************************************************************************"
+echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
 
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 
-echo "Port Graf: $PORT_GRAF"
-echo "Port Prom: $PORT_PROM"
+echo "You can logon Prometheus Web Interface through this port : $PORT_PROM"
 
 # kubectl -n metrics get services -o yaml|grep -i nodePort:
 # Display secret to use 
-echo "You can login Grafana using admin user and the following password:"
+echo "You can login Grafana using admin user and the following password (port $PORT_GRAF):"
 kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
