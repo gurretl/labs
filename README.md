@@ -18,10 +18,10 @@ Lionel
 **To ignore** : Directory template I use for each Lab
 
 ## Lab 1
-**Vagrant** : install VMs with Vagrant on VirtualBox
+**Vagrant** : Install VMs with Vagrant on VirtualBox
 
 ## Lab 2
-**Ansible** : install Minikube from Ansible Controller
+**Ansible** : Install Minikube from Ansible Controller
 
 ## Lab 3
 **Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm
