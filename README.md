@@ -24,7 +24,7 @@ Lionel
 **Ansible** : install Minikube from Ansible Controller
 
 ## Lab 3
-**Helm** : Install Prometheus / Grafana Stack on Minikube with Helm
+**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm
 
 ## Lab 4
 **Docker** : Docker Compose - Voting App
