@@ -1,0 +1,51 @@
+Vagrant.configure("2") do |config|
+  # Developper VM
+  config.vm.define "deploy" do |deploy|
+    deploy.vm.box = "generic/ubuntu2004"
+    deploy.vm.hostname = "deploy"
+    deploy.vm.network "private_network", ip: "192.168.56.10"
+	deploy.vm.synced_folder "../data", "/vagrant_data"
+    deploy.vm.provider :virtualbox do |v|
+      v.gui = true
+	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 2048]
+      v.customize ["modifyvm", :id, "--name", "deploy"]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+    deploy.vm.provision "shell", path: "config_common.sh"
+	deploy.vm.provision "shell", path: "config_devenv.sh"
+  end
+  
+  # GitLab server .11
+  config.vm.define "gitlab" do |gitlab|
+    gitlab.vm.box = "centos/7"
+    gitlab.vm.hostname = "gitlab"
+    gitlab.vm.network "private_network", ip: "192.168.56.11"
+    gitlab.vm.provider :virtualbox do |v|
+      v.gui = true
+	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1024]
+      v.customize ["modifyvm", :id, "--name", "gitlab"]
+      v.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+	gitlab.vm.provision "shell", path: "config_common.sh"
+    gitlab.vm.provision "shell", path: "config_centos_default.sh"
+  end
+  
+  # K3S Server .12
+  config.vm.define "k3s" do |k3s|
+    k3s.vm.box = "centos/7"
+    k3s.vm.hostname = "k3s"
+    k3s.vm.network "private_network", ip: "192.168.56.12"
+    k3s.vm.provider :virtualbox do |v|
+      v.gui = true
+	  v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+      v.customize ["modifyvm", :id, "--memory", 1024]
+      v.customize ["modifyvm", :id, "--name", "k3s"]
+      v.customize ["modifyvm", :id, "--cpus", "1"]
+    end
+	k3s.vm.provision "shell", path: "config_common.sh"
+    k3s.vm.provision "shell", path: "config_centos_default.sh"
+  end
+end
+
