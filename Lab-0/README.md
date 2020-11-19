@@ -2,5 +2,5 @@
 Date : XX Xxx XXXX  
 Author: Lionel Gurret
 # LinkedIn article related
-# Prerequesites
+# Prerequisites
 # How to launch the Lab
