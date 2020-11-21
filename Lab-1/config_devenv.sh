@@ -21,4 +21,4 @@ else
 fi
 
 echo "[4]: Install packages"
-sudo apt-get install mc net-tools git ansible -y
+sudo apt-get install mc net-tools git ansible tee -y
