@@ -6,4 +6,6 @@ Author: Lionel Gurret
 * Install Oracle Virtual Box  
 * Install Vagrant
 # How to launch the Lab
+Download the code  
+Go to this directory and run :  
 `vagrant up`  
