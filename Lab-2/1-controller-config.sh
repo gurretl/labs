@@ -11,6 +11,6 @@ if [ ! -d ~/ansible ]; then
 fi
 touch /home/vagrant/ansible/inventory.ini
 echo "\
-ks3 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.ssh/id_rsa
-gitlab ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.ssh/id_rsa" > /home/vagrant/ansible/inventory.ini
+ks3 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_host=k3s
+gitlab ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.ssh/id_rsa ansible_host=gitlab" > /home/vagrant/ansible/inventory.ini
 

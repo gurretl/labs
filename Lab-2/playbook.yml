@@ -1,0 +1,12 @@
+- hosts: k3s
+  become: yes
+  gather_facts: yes
+  roles:
+    - xanmannings.k3s
+
+- hosts: gitlab
+  become: yes
+  gather_facts: yes
+  roles:
+    - geerlingguy.gitlab
+
