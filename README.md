@@ -21,7 +21,7 @@ Lionel
 **Vagrant** : Install VMs with Vagrant on VirtualBox
 
 ## Lab 2
-**Ansible** : Install Minikube from Ansible Controller
+**Ansible** : Install K3S from Ansible Controller
 
 ## Lab 3
 **Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm
