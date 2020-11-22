@@ -6,9 +6,3 @@
   gather_facts: yes
   roles:
     - role: xanmanning.k3s
-
-- hosts: gitlab
-  become: yes
-  gather_facts: yes
-  roles:
-    - geerlingguy.gitlab
