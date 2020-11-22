@@ -8,5 +8,5 @@ sudo yum install kbd -y
 sudo localectl set-keymap ch
 
 echo "[3] : All SSH with Password"
-sudo sed -i 's/PasswordAuthentication no\"\w*"/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 sudo service sshd restart
