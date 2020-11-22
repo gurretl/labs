@@ -17,7 +17,7 @@ Author: Lionel Gurret
     * RAM : 2GB
     * OS : Centos7
 # How to launch the Lab
-`git clone https://github.com/gurretl/labs`
+`git clone https://github.com/gurretl/labs`  
 `cd labs`  
 `./1-controller-config.sh`  
 `./2-run-playbook.sh`  
