@@ -1,7 +1,7 @@
 - hosts: k3s
   vars:
     k3s_become_for_all: true
-    k3s_write_kubeconfig_mode: 644
+    k3s_write_kubeconfig_mode: 777
   become: yes
   gather_facts: yes
   roles:
