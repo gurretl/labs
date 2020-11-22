@@ -17,6 +17,7 @@ Author: Lionel Gurret
     * RAM : 2GB
     * OS : Centos7
 # How to launch the Lab
+From Deploy VM, run the following commands :  
 `git clone https://github.com/gurretl/labs`  
 `cd labs`  
 `./1-controller-config.sh`  
