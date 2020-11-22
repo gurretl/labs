@@ -1,12 +1,14 @@
 - hosts: k3s
+  vars:
+    k3s_become_for_all: true
+    k3s_write_kubeconfig_mode: 644
   become: yes
   gather_facts: yes
   roles:
-    - xanmannings.k3s
+    - role: xanmanning.k3s
 
 - hosts: gitlab
   become: yes
   gather_facts: yes
   roles:
     - geerlingguy.gitlab
-
