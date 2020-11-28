@@ -7,6 +7,8 @@ https://gurret-lionel.weebly.com/
 
 You will also find all my LinkedIn articles.
 
+Finally, here is my LinkedIn profile : https://www.linkedin.com/in/lionel-gurret/  
+
 Thanks for your interest !
 
 Lionel
@@ -28,3 +30,6 @@ Lionel
 
 ## Lab 4
 **Docker** : Docker Compose - Voting App
+
+## Lab 5
+**Docker** : Build your first image  

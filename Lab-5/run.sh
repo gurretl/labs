@@ -9,7 +9,7 @@ sleep 2
 
 echo "[2] Our image is built, let's display it :"
 sleep 2
-docker image ls
+docker image ls|grep gurretl
 sleep 5
 
 echo "[3] List image layers : "
