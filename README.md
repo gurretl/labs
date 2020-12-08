@@ -20,20 +20,20 @@ Lionel
 **To ignore** : Directory template I use for each Lab
 
 ## Lab 1
-**Vagrant** : Install VMs with Vagrant on VirtualBox ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))
+**Vagrant** : Install VMs with Vagrant on VirtualBox ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))  
 
 ## Lab 2
-**Ansible** : Install K3S from Ansible Controller
+**Ansible** : Install K3S from Ansible Controller ([README](https://github.com/gurretl/labs/blob/main/Lab-2/README.md))  
 
 ## Lab 3
-**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm
+**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm ([README](https://github.com/gurretl/labs/blob/main/Lab-3/README.md))  
 
 ## Lab 4
-**Docker** : Docker Compose - Voting App
+**Docker** : Docker Compose - Voting App ([README](https://github.com/gurretl/labs/blob/main/Lab-4/README.md))  
 
 ## Lab 5
-**Docker** : Build your first image  
+**Docker** : Build your first image ([README](https://github.com/gurretl/labs/blob/main/Lab-5/README.md))  
 
 ## Lab 6
-**Docker** : Healthcheck instruction  
+**Docker** : Healthcheck instruction ([README](https://github.com/gurretl/labs/blob/main/Lab-6/README.md))  
 
