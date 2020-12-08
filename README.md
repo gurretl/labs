@@ -20,7 +20,7 @@ Lionel
 **To ignore** : Directory template I use for each Lab
 
 ## Lab 1
-**Vagrant** : Install VMs with Vagrant on VirtualBox
+**Vagrant** : Install VMs with Vagrant on VirtualBox ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))
 
 ## Lab 2
 **Ansible** : Install K3S from Ansible Controller
@@ -33,3 +33,7 @@ Lionel
 
 ## Lab 5
 **Docker** : Build your first image  
+
+## Lab 6
+**Docker** : Healthcheck instruction  
+

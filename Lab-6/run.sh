@@ -6,8 +6,7 @@ docker pull nginx:1.13
 echo "[2] Let's run a container with an health check !"
 sleep 2
 docker run --name=nginx-proxy -d --health-cmd='stat /etc/nginx/nginx.conf || exit 1' nginx:1.13
-while [ "`docker inspect -f {{.State.Health.Status}} nginx-proxy`" != "healthy" ]; do     sleep 2; done
-#sleep 35
+while [ "`docker inspect -f {{.State.Health.Status}} nginx-proxy`" != "healthy" ]; do sleep 2; done
 /usr/bin/docker inspect -f {{.State.Health.Status}} nginx-proxy
 echo "[3] Is our container Healthy ?"
 sleep 2
@@ -18,13 +17,12 @@ sleep 2
 docker exec nginx-proxy rm /etc/nginx/nginx.conf
 sleep 5
 echo "[5] Is our container Healhty ?"
-sleep 2
+while [ "`docker inspect -f {{.State.Health.Status}} nginx-proxy`" != "unhealthy" ]; do sleep 2; done
 /usr/bin/docker inspect -f {{.State.Health.Status}} nginx-proxy
-exit
-sleep 3
 echo "[6] Fixing issue (create nginx.conf)"
 sleep 2
 docker exec nginx-proxy touch /etc/nginx/nginx.conf
 sleep 3
-/usr/bin/docker inspect -f {{.State.Health.Status}} nginx-proxy
+echo "Please Run the following command and wait to see when your container is healthy again :"
+echo "watch /usr/bin/docker inspect -f {{.State.Health.Status}} nginx-proxy"
 
