@@ -17,25 +17,25 @@ Lionel
 `git clone https://github.com/gurretl/labs.git`
 
 ## Lab 0
-**To ignore** : Directory template I use for each Lab
+**To ignore** : Directory template I use for each Lab - EmptyDir :)
 
 ## Lab 1
-**Vagrant** : Install VMs with Vagrant on VirtualBox ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))  
+**Vagrant** : Install quickly VMs with Vagrant on VirtualBox ! ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))  
 
 ## Lab 2
-**Ansible** : Install K3S from Ansible Controller ([README](https://github.com/gurretl/labs/blob/main/Lab-2/README.md))  
+**Ansible** : Install K3S env from Ansible Controller on a VM ! ([README](https://github.com/gurretl/labs/blob/main/Lab-2/README.md))  
 
 ## Lab 3
-**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm ([README](https://github.com/gurretl/labs/blob/main/Lab-3/README.md))  
+**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm ! ([README](https://github.com/gurretl/labs/blob/main/Lab-3/README.md))  
 
 ## Lab 4
-**Docker** : Docker Compose - Voting App ([README](https://github.com/gurretl/labs/blob/main/Lab-4/README.md))  
+**Docker** : Docker Compose - Deploy a Voting App ! ([README](https://github.com/gurretl/labs/blob/main/Lab-4/README.md))  
 
 ## Lab 5
-**Docker** : Build your first image ([README](https://github.com/gurretl/labs/blob/main/Lab-5/README.md))  
+**Docker** : Build your first image on Docker ! ([README](https://github.com/gurretl/labs/blob/main/Lab-5/README.md))  
 
 ## Lab 6
-**Docker** : Healthcheck instruction ([README](https://github.com/gurretl/labs/blob/main/Lab-6/README.md))  
+**Docker** : Use Healthcheck instruction in DockerFile ! ([README](https://github.com/gurretl/labs/blob/main/Lab-6/README.md))  
 
 ## Lab 7
-**Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ([README](https://github.com/gurretl/labs/blob/main/Lab-7/README.md))  
+**Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ! ([README](https://github.com/gurretl/labs/blob/main/Lab-7/README.md))  
