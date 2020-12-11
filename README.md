@@ -38,4 +38,4 @@ Lionel
 **Docker** : Healthcheck instruction ([README](https://github.com/gurretl/labs/blob/main/Lab-6/README.md))  
 
 ## Lab 7
-**Kubernetes** : Kubeapps Demo ([README](https://github.com/gurretl/labs/blob/main/Lab-7/README.md))  
+**Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ([README](https://github.com/gurretl/labs/blob/main/Lab-7/README.md))  
