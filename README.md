@@ -1,13 +1,13 @@
 # All My Labs
 
-In this repository, you will find all sources I used in my labs.
+In this repository, you will find all sources I used in my personal labs.
 
-They are availables, following this link :
+Articles related are availables, following this link :
 https://gurret-lionel.weebly.com/
 
-You will also find all my LinkedIn articles.
+You will also find all my LinkedIn articles on several technologies.
 
-Finally, here is my LinkedIn profile : https://www.linkedin.com/in/lionel-gurret/  
+Finally, here is my LinkedIn profile if you need anything : https://www.linkedin.com/in/lionel-gurret/  
 
 Thanks for your interest !
 
