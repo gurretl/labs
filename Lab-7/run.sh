@@ -48,6 +48,13 @@ echo "[5] Create port forwarding"
 kubectl expose service kubeapps --type=NodePort --target-port=8080 --name=kubeapps-internal-dashboard-np -n kubeapps
 
 NODE_PORT=$(kubectl -n kubeapps describe service kubeapps-internal-dashboard-np|grep NodePort:|awk -F '>  ' {'print $2'}|awk -F '/' {'print $1'})
+
+echo "[6] Create PV and PVC for testing"
+sleep 2
+mkdir /mnt/data
+kubectl create -f pv.yml
+echo ""
+sleep 2
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
