@@ -45,7 +45,7 @@ echo $KEY
 echo ""
 # Create port forward for testing
 echo "[5] Create port forwarding"
-kubectl expose service kubeapps-internal-dashboard --type=NodePort --target-port=8080 --name=kubeapps-internal-dashboard-np -n kubeapps
+kubectl expose service kubeapps --type=NodePort --target-port=8080 --name=kubeapps-internal-dashboard-np -n kubeapps
 
 NODE_PORT=$(kubectl -n kubeapps describe service kubeapps-internal-dashboard-np|grep NodePort:|awk -F '>  ' {'print $2'}|awk -F '/' {'print $1'})
 echo "*************************************************************************************************************"
