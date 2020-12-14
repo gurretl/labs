@@ -19,7 +19,13 @@ echo "[2] Deploy Jenkins"
 sleep 2
 kubectl apply -f .
 sleep 30
-echo "[3] Get Jenkins password"
+echo "[3] Install K9S"
+# Install k9s
+(cd && wget https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz)
+(cd && tar -xzf k9s_Linux_x86_64.tar.gz)
+(cd && mv k9s /usr/local/bin/k9s)
+sleep 2
+echo "[4] Get Jenkins password"
 JENKINS_POD=$(kubectl get pods -n jenkins|grep jenkins|awk -F ' ' {'print $1'})
 JENKINS_PWD=$(kubectl logs $JENKINS_POD --namespace jenkins|grep "Please use " -A3|grep -v "Please"|grep -v '^$')
 sleep 2
