@@ -13,15 +13,18 @@ spec:
       labels:
         app: jenkins
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 0
+      volumes:
+        - name: jenkins-home
+          persistentVolumeClaim:
+            claimName: task-pv-claim
       containers:
       - name: jenkins
         image: jenkins/jenkins:lts
         ports:
-        - containerPort: 8080
+          - containerPort: 8080
         volumeMounts:
           - name: jenkins-home
             mountPath: /var/jenkins_home
-      volumes:
-        - name: jenkins-home
-          emptyDir: {}
-
