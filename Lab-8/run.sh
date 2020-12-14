@@ -18,7 +18,7 @@ kubectl create ns jenkins
 echo "[2] Deploy Jenkins"
 sleep 2
 kubectl apply -f .
-sleep 20
+sleep 30
 echo "[3] Get Jenkins password"
 JENKINS_POD=$(kubectl get pods -n jenkins|grep jenkins|awk -F ' ' {'print $1'})
 JENKINS_PWD=$(kubectl logs $JENKINS_POD --namespace jenkins|grep "Please use " -A3|grep -v "Please"|grep -v '^$')
