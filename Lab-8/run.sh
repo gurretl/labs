@@ -18,7 +18,7 @@ kubectl create ns jenkins
 echo "[2] Deploy Jenkins"
 sleep 2
 kubectl apply -f .
-sleep 30
+sleep 60
 echo "[3] Install K9S"
 # Install k9s
 (cd && wget https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz)
