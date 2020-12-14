@@ -1,6 +1,7 @@
 # About
 Date : 14th Dec 2020  
-Author: Lionel Gurret
+Author: Lionel Gurret  
+Description : Install Jenkins on Minikube !
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
