@@ -1,6 +1,7 @@
 # About
 Date : 28 Nov 2020  
-Author: Lionel Gurret
+Author: Lionel Gurret  
+Description : Build your first image on Docker !
 # LinkedIn article related
 # Prerequisites
 Get a Docker environment.  
