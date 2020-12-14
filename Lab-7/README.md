@@ -1,6 +1,7 @@
 # About
 Date : 10th Dec 2020  
-Author: Lionel Gurret
+Author: Lionel Gurret  
+Description : Kubeapps Demo - Learn how to deploy Helm charts through a web interface !
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
