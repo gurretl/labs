@@ -17,9 +17,12 @@ echo "[2] Deploy Jenkins"
 sleep 2
 kubectl apply -f .
 sleep 15
+echo "[3] Get Jenkins password"
+JENKINS_PWD=$(kubectl logs jenkins-deployment-7f5874c7f-n6cbs --namespace jenkins|grep "Please use " -A3|grep -v "Please"|grep -v '^$')
+sleep 2
 echo "[3] Test and play"
-echo "$url_first-31000-$url_second"
-
+echo "URL : $url_first-31000-$url_second"
+echo "Password : $JENKINS_PWD"
 ## Split URL to get 2 parts (Used in grafana.yml config to link prometheus)
 #url_first=$(echo $answer|awk -F '-' {'print $1'})
 #url_second=$(echo $answer|awk -F '-' {'print $2'})
