@@ -1,6 +1,7 @@
 # About
 Date : 18th Nov 2020  
-Author: Lionel Gurret
+Author: Lionel Gurret  
+Description : Install Prometheus / Grafana Stack on Hello Minikube with Helm !  
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
