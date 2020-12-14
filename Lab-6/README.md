@@ -1,6 +1,7 @@
 # About
 Date : 08 Dec 2020  
-Author: Lionel Gurret
+Author: Lionel Gurret  
+Description : Use Healthcheck instruction in DockerFile !
 # LinkedIn article related
 # Prerequisites
 Get a Docker environment.  
