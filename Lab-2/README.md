@@ -1,6 +1,7 @@
 # About
 Date : 22 Nov 2020  
 Author: Lionel Gurret
+Description : Install K3S env from Ansible Controller on a VM !
 # LinkedIn article related
 # Prerequisites
 2 Virtual machines (Check Lab-1 for Vagrant Files examples):  
