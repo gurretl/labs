@@ -8,6 +8,6 @@ Get a Docker environment.
 I.e : You can use something like : https://labs.play-with-docker.com/
 # How to launch the Lab
 `git clone https://github.com/labs`  
-`cd labs/Lab-6  
+`cd labs/Lab-06  
 `./run.sh`
 
