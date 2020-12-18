@@ -35,7 +35,7 @@ helm repo add grafana https://grafana.github.io/helm-charts
 # In this example, I have provided a grafana.yml values file for testing
 (cd && helm inspect values grafana/grafana > custom_grafana.yml)
 
-# Create a namespace for our stacs
+# Create a namespace for our stack
 kubectl create ns metrics
 
 # Install (or upgrade) Prometheus (adapt yml file if you use custom files)
