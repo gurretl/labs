@@ -7,7 +7,7 @@ echo "Please provie Minikube public URL (ex: https://2886795331-cykoria04.enviro
 read -p "You can get it by clicking on + / Select port to view on Host 1: " answer
 echo "Answer : $answer"
 
-# Split URL to get 2 parts (Used in grafana.yml config to link prometheus)
+# Split URL to get 2 parts
 url_first=$(echo $answer|awk -F '-' {'print $1'})
 url_second=$(echo $answer|awk -F '-' {'print $2'})
 

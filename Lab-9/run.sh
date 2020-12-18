@@ -8,7 +8,7 @@ echo "Please provie Minikube public URL (ex: https://2886795331-cykoria04.enviro
 read -p "You can get it by clicking on + / Select port to view on Host 1: " answer
 echo "Answer : $answer"
 
-# Split URL to get 2 parts (Used in grafana.yml config to link prometheus)
+# Split URL to get 2 parts
 url_first=$(echo $answer|awk -F '-' {'print $1'})
 url_second=$(echo $answer|awk -F '-' {'print $2'})
 
@@ -35,7 +35,7 @@ kubectl create ns registry
 PORT_HARBOR=30003
 
 # With configure our helm values file
-sed -i "s,HARBOR_URL,$url_first-$PORT_PROM-$url_second," harbor.yml
+sed -i "s,HARBOR_URL,$url_first-$PORT_HARBOR-$url_second," harbor.yml
 
 # Git delete to be sure nothing will be pushed
 rm -rf ../.git
@@ -55,3 +55,4 @@ echo "You can logon Harbor through this url : $url_first-$PORT_HARBOR-$url_secon
 echo ""
 echo "User : admin"
 echo "Default Password : Harbor12345"
+
