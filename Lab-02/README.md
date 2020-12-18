@@ -20,7 +20,7 @@ Description : Install K3S env from Ansible Controller on a VM !
 # How to launch the Lab
 From Deploy VM, run the following commands :  
 `git clone https://github.com/gurretl/labs`  
-`cd labs`  
+`cd labs/Lab-02`  
 `./1-controller-config.sh`  
 `./2-run-playbook.sh`  
 `-/3-install-helloworld-app.sh`  
