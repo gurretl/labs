@@ -21,6 +21,9 @@ url_second=$(echo $answer|awk -F '-' {'print $2'})
 (cd && tar -xzf k9s_Linux_x86_64.tar.gz)
 (cd && mv k9s /usr/local/bin/k9s)
 
+# We will use our own local image to be able to manage and push our Jenkins plugins.txt list
+docker build . -t lionel/jenkins:v1
+
 # Create a namespace for our registry
 kubectl create ns jenkins
 

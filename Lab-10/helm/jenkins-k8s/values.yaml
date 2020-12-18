@@ -7,9 +7,10 @@ initContainerImage: "alpine:3.10.2"
 replicaCount: 1
 imagePullSecrets:
 image:
-  repository: eldada-docker-examples.bintray.io/jenkins
-  tag: lts-k8s-20190827
-  pullPolicy: Always
+  repository: lionel/jenkins
+  tag: v1
+  #pullPolicy: Always
+  pullPolicy: Never
 did:
   image:
     repository: docker
