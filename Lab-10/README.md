@@ -1,7 +1,7 @@
 # About
 Date : 18th Dec 2020  
 Author: Lionel Gurret  
-Description : Install Jenkins with Helm - with a side docker container in it (**docker in docker**)
+Description : Install Jenkins with Helm on Minikube - with a side docker container in it (**docker in docker**)
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
