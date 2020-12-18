@@ -33,7 +33,7 @@ service:
   ## Whitelist the IPs that can access Jenkins
   loadBalancerSourceRanges:
   - 0.0.0.0/0
-  nodePort: 31000
+  nodePort: PORT_JENKINS
   externalPort: 8080
   internalPort: 8080
 ## Make sure the javaOps and resources are aligned to avoid conflicts

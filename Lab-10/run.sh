@@ -25,9 +25,15 @@ url_second=$(echo $answer|awk -F '-' {'print $2'})
 kubectl create ns jenkins
 
 # Set JENKINS HTTPS Default Port
-PORT_JENKINS=32577
+PORT_JENKINS=31000
+sed -i "s,PORT_JENKINS,$PORT_JENKINS," ./helm/jenkins-k8s/values.yaml
 JENKINS_URL=$url_first-$PORT_JENKINS-$url_second
 
+# helm init
+helm init
+
+# helm install
+helm upgrade --install jenkins ./helm/jenkins-k8s -n jenkins
 
 exit
 
@@ -36,6 +42,8 @@ while [ "$(kubectl get pods -n registry -l=app='jenkins' -o jsonpath='{.items[*]
    echo "Waiting for Jenkins to be ready."
 done
 
+# Remove .git to avoid pushing modified files
+rm -rf ../.git
 
 # Display all information
 echo "*************************************************************************************************************"
