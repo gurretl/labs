@@ -2,7 +2,8 @@
 Date : 18th Dec 2020  
 Author: Lionel Gurret  
 Description : Install Jenkins with Helm on Minikube - with a side docker container in it (**docker in docker**)  
-Note : Inspired by https://github.com/eldada/jenkins-in-kubernetes and https://applatix.com/case-docker-docker-kubernetes-part-2/ (thanks a lot guys !)
+Note : Inspired by https://github.com/eldada/jenkins-in-kubernetes and https://applatix.com/case-docker-docker-kubernetes-part-2/  
+Thanks a lot guys you helped me a lot !
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
