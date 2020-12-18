@@ -13,18 +13,27 @@ url_first=$(echo $answer|awk -F '-' {'print $1'})
 url_second=$(echo $answer|awk -F '-' {'print $2'})
 
 # Install Helm 3.4.1
+echo "[1] We install Helm"
+sleep 2
 (cd && wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz)
 (cd && tar -zxvf helm-v3.4.1-linux-amd64.tar.gz)
 (cd && mv linux-amd64/helm /usr/local/bin/helm)
+
+echo "[2] We install K9S"
+sleep 2
 # Install k9s
 (cd && wget https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz)
 (cd && tar -xzf k9s_Linux_x86_64.tar.gz)
 (cd && mv k9s /usr/local/bin/k9s)
 
 # We will use our own local image to be able to manage and push our Jenkins plugins.txt list
+echo "[3] We need to build our own local custom jenkins image"
+sleep 2
 docker build . -t lionel/jenkins:v1
 
 # Create a namespace for our registry
+echo "[4] Create Kube namespace jenkins"
+sleep 2
 kubectl create ns jenkins
 
 # Set JENKINS HTTPS Default Port
@@ -33,12 +42,16 @@ sed -i "s,PORT_JENKINS,$PORT_JENKINS," ./helm/jenkins-k8s/values.yaml
 JENKINS_URL=$url_first-$PORT_JENKINS-$url_second
 
 # helm install
+echo "[5] Install Jenkins with helm"
+sleep 2
 helm upgrade --install jenkins ./helm/jenkins-k8s -n jenkins
 
- # Waiting Jenkins Pods to be in ready state
- while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}'|grep false)" != "" ]; do
+# Waiting Jenkins Pods to be in ready state
+echo "Waiting for Jenkins to be ready..."
+sleep 2
+while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
    sleep 5
-   echo "Waiting for Jenkins to be ready."
+   echo "Waiting for Jenkins to be ready..."
 done
 
 # Remove .git to avoid pushing modified files
