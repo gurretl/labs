@@ -33,9 +33,9 @@ kubectl create ns registry
 
 # Set Harbor HTTPS Default Port
 PORT_HARBOR=30003
-
+HARBOR_URL=$url_first-$PORT_HARBOR-$url_second
 # With configure our helm values file
-sed -i "s,HARBOR_URL,$url_first-$PORT_HARBOR-$url_second," harbor.yml
+sed -i "s,HARBOR_URL,$HARBOR_URL," harbor.yml
 
 # Git delete to be sure nothing will be pushed
 rm -rf ../.git
@@ -47,12 +47,20 @@ while [ "$(kubectl get pods -n registry -l=app='harbor' -o jsonpath='{.items[*].
    sleep 5
    echo "Waiting for Harbor to be ready."
 done
+
+
 # Display all information
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
-echo "You can logon Harbor through this url : $url_first-$PORT_HARBOR-$url_second"
+echo "You can logon Harbor through this url : $HARBOR_URL"
 echo ""
 echo "User : admin"
 echo "Default Password : Harbor12345"
-
+echo ""
+echo "To perform a docker login run : "
+echo "docker login $HARBOR_URL (with admin or user credentials)"
+echo "To pull an image run : docker pull NAME[:TAG|@DIGEST]"
+echo "To tag an image run : docker tag SOURCE_IMAGE[:TAG] $HARBOR_URL_SANS_HTTPS/ORGNAME/REPOSITORY[:TAG]"
+echo "To push an image run : docker push $HARBOR_URL_SANS_HTTPS/ORGNAME/REPOSITORY[:TAG]"
+echo ""
