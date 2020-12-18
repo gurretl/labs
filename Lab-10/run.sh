@@ -29,15 +29,11 @@ PORT_JENKINS=31000
 sed -i "s,PORT_JENKINS,$PORT_JENKINS," ./helm/jenkins-k8s/values.yaml
 JENKINS_URL=$url_first-$PORT_JENKINS-$url_second
 
-# helm init
-helm init
-
 # helm install
 helm upgrade --install jenkins ./helm/jenkins-k8s -n jenkins
 
-exit
-
-while [ "$(kubectl get pods -n registry -l=app='jenkins' -o jsonpath='{.items[*].status.containerStatuses[0].ready}'|grep false)" != "" ]; do
+ # Waiting Jenkins Pods to be in ready state
+ while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}'|grep false)" != "" ]; do
    sleep 5
    echo "Waiting for Jenkins to be ready."
 done
