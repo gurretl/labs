@@ -16,33 +16,36 @@ Lionel
 # How to download this repo:
 `git clone https://github.com/gurretl/labs.git`
 
-## Lab 0
+## Lab 00
 **To ignore** : Directory template I use for each Lab - EmptyDir :)
 
-## Lab 1
-**Vagrant** : Install quickly VMs with Vagrant on VirtualBox ! ([README](https://github.com/gurretl/labs/blob/main/Lab-1/README.md))  
+## Lab 01
+**Vagrant** : Install quickly VMs with Vagrant on VirtualBox ! ([README](https://github.com/gurretl/labs/blob/main/Lab-01/README.md))  
 
-## Lab 2
-**Ansible** : Install K3S env from Ansible Controller on a VM ! ([README](https://github.com/gurretl/labs/blob/main/Lab-2/README.md))  
+## Lab 02
+**Ansible** : Install K3S env from Ansible Controller on a VM ! ([README](https://github.com/gurretl/labs/blob/main/Lab-02/README.md))  
 
-## Lab 3
-**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm ! ([README](https://github.com/gurretl/labs/blob/main/Lab-3/README.md))  
+## Lab 03
+**Helm** : Install Prometheus / Grafana Stack on Hello Minikube with Helm ! ([README](https://github.com/gurretl/labs/blob/main/Lab-03/README.md))  
 
-## Lab 4
-**Docker** : Docker Compose - Deploy a Voting App ! ([README](https://github.com/gurretl/labs/blob/main/Lab-4/README.md))  
+## Lab 04
+**Docker** : Docker Compose - Deploy a Voting App ! ([README](https://github.com/gurretl/labs/blob/main/Lab-04/README.md))  
 
-## Lab 5
-**Docker** : Build your first image on Docker ! ([README](https://github.com/gurretl/labs/blob/main/Lab-5/README.md))  
+## Lab 05
+**Docker** : Build your first image on Docker ! ([README](https://github.com/gurretl/labs/blob/main/Lab-05/README.md))  
 
-## Lab 6
-**Docker** : Use Healthcheck instruction in DockerFile ! ([README](https://github.com/gurretl/labs/blob/main/Lab-6/README.md))  
+## Lab 06
+**Docker** : Use Healthcheck instruction in DockerFile ! ([README](https://github.com/gurretl/labs/blob/main/Lab-06/README.md))  
 
-## Lab 7
-**Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ! ([README](https://github.com/gurretl/labs/blob/main/Lab-7/README.md))  
+## Lab 07
+**Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ! ([README](https://github.com/gurretl/labs/blob/main/Lab-07/README.md))  
 
-## Lab 8
-**Kubernetes** : Install Jenkins on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-8/README.md))  
+## Lab 08
+**Kubernetes** : Install Jenkins on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-08/README.md))  
 
-## Lab 9
-**Harbor** : Install Harbor on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-9/README.md))  
+## Lab 09
+**Harbor** : Install Harbor on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-09/README.md))  
+
+## Lab 10
+**Harbor** : Install Jenkins with Helm on Minikube with a Docker side container ! ([README](https://github.com/gurretl/labs/blob/main/Lab-10/README.md))  
 
