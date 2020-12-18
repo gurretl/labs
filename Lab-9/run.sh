@@ -43,7 +43,7 @@ rm -rf ../.git
 # Install (or upgrade) Harbor (adapt yml file if you use custom files)
 helm upgrade --install harbor -f harbor.yml -n registry harbor/harbor
 
-while [ "$(kubectl get pods -n registry -l=app='harbor' -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
+while [ "$(kubectl get pods -n registry -l=app='harbor' -o jsonpath='{.items[*].status.containerStatuses[0].ready}'|grep false)" != "" ]; do
    sleep 5
    echo "Waiting for Harbor to be ready."
 done
