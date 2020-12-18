@@ -44,5 +44,5 @@ Lionel
 **Kubernetes** : Install Jenkins on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-8/README.md))  
 
 ## Lab 8
-**Harbor** : Install Harbor on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-9OQ/README.md))  
+**Harbor** : Install Harbor on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-9/README.md))  
 
