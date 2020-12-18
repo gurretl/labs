@@ -25,13 +25,15 @@ did:
 ## Set the admin user
 adminUser: admin
 ## Make sure to replace the default password
-adminPassword: password
+adminPassword: P4ssw0rd!
 service:
   name: jenkins-k8s
-  type: LoadBalancer
+  #type: LoadBalancer
+  type: NodePort
   ## Whitelist the IPs that can access Jenkins
   loadBalancerSourceRanges:
   - 0.0.0.0/0
+  nodePort: 31000
   externalPort: 8080
   internalPort: 8080
 ## Make sure the javaOps and resources are aligned to avoid conflicts

@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ template "jenkins-k8s.name" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: {{ template "jenkins-k8s.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}

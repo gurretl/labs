@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "jenkins-k8s.fullname" . }}
+  namespace: {{ .Values.namespace }}
   labels:
     app: {{ template "jenkins-k8s.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
