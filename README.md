@@ -41,7 +41,7 @@ Lionel
 **Kubernetes** : Kubeapps Demo - Learn how to deploy Helm charts through a web interface ! ([README](https://github.com/gurretl/labs/blob/main/Lab-07/README.md))  
 
 ## Lab 08
-**Kubernetes** : Install Jenkins on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-08/README.md))  
+**Kubernetes** : Install Jenkins with K8s Manifests on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-08/README.md))  
 
 ## Lab 09
 **Harbor** : Install Harbor on Minikube ! ([README](https://github.com/gurretl/labs/blob/main/Lab-09/README.md))  
