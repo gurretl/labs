@@ -14,8 +14,14 @@ spec:
       labels:
         app: tomcat
     spec:
+      volumes:
+        - name: tomcat-home
+          persistentVolumeClaim:
+            claimName: task-pv-claim
       containers:
       - image: saravak/tomcat8
         name: tomcat8
+        volumeMounts:
+          - name: tomcat-home
+            mountPath: /opt/tomcat
   replicas: 1
-
