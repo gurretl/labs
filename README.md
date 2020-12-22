@@ -49,3 +49,6 @@ Lionel
 ## Lab 10
 **Harbor** : Install Jenkins with Helm on Minikube with a Docker side container ! ([README](https://github.com/gurretl/labs/blob/main/Lab-10/README.md))  
 
+## Lab 11
+**Jenkins** : Install Jenkins with Manifests and Tomcat with Helm on Minikube in order to deploy Tomcat application using Jenkins ! ([README](https://github.com/gurretl/labs/blob/main/Lab-11/README.md))  
+
