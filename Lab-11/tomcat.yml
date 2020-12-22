@@ -69,7 +69,7 @@ tomcatPassword: password
 ## Expose management services
 ## ref: https://github.com/bitnami/charts/tree/master/bitnami/tomcat#configuration
 ##
-tomcatAllowRemoteManagement: 0
+tomcatAllowRemoteManagement: 1
 
 ## Command and args for running the container (set to default if not set). Use array form
 ##
