@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: tomcat-home
           persistentVolumeClaim:
-            claimName: task-pv-claim
+            claimName: tomcat-pv-claim
       containers:
       - image: saravak/tomcat8
         name: tomcat8

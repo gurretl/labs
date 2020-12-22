@@ -19,7 +19,7 @@ spec:
       volumes:
         - name: jenkins-home
           persistentVolumeClaim:
-            claimName: task-pv-claim
+            claimName: jenkins-pv-claim
       containers:
       - name: jenkins
         image: jenkins/jenkins:lts
