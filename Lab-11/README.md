@@ -2,8 +2,6 @@
 Date : 22th Dec 2020  
 Author: Lionel Gurret  
 Description : Deploy Sample war application on Tomcat using Jenkins
-# LinkedIn article related
-TO COMPLETE
 # Prerequisites
 This script is designed for Minikube !  
 (https://kubernetes.io/fr/docs/tutorials/hello-minikube/ - Click on Launch Terminal)  
