@@ -9,5 +9,5 @@ This script is designed for Minikube !
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-03`  
-`./install.sh`
+`./run.sh`
 
