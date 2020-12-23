@@ -31,8 +31,9 @@ echo "Keep default chart values if you are interested in /root/custom_tomcat.yml
 (cd && helm inspect values bitnami/tomcat > custom_tomcat.yml)
 sleep 2
 echo "[4] Install Tomcat with Helm"
-helm upgrade --install tomcat -f tomcat.yml -n jenkins bitnami/tomcat
+helm upgrade --install tomcat -f helm-values/tomcat.yml -n jenkins bitnami/tomcat
 echo "[5] Install K9S"
+sleep 2
 # Install k9s
 (cd && wget https://github.com/derailed/k9s/releases/download/v0.23.10/k9s_Linux_x86_64.tar.gz)
 (cd && tar -xzf k9s_Linux_x86_64.tar.gz)
