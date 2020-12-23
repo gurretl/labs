@@ -14,6 +14,6 @@ This script is designed for Minikube !
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-12`  
 `./run.sh`  
-* Wait some time to let Jobs ru
+* Wait some time to let Jobs run and generate Metrics for Prometheus  
 * Go to Grafana and look at this nice dashboard :)  
 <img src="images/1.jpg" width="800" >  
