@@ -40,7 +40,7 @@ kubectl create ns jenkins
 PORT_JENKINS=31000
 sed -i "s,PORT_JENKINS,$PORT_JENKINS," ./helm/jenkins-k8s/values.yaml
 JENKINS_URL=$url_first-$PORT_JENKINS-$url_second
-
+JENKINS_URL_SANS_HTTPS=$(echo $HARBOR_URL|awk -F '/' {'print $3'})
 # helm install
 echo "[5] Install Jenkins with helm"
 sleep 2
