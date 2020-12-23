@@ -62,6 +62,11 @@ $GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
 # Remove .git directory to avoid pushing unwanted changes to GitHub
 rm -rf ../.git
 
+while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
+   sleep 5
+   echo "Waiting for Grafana to be ready."
+done
+
 # Display all information
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
@@ -73,8 +78,3 @@ echo "URL : $url_first-$PORT_GRAF-$url_second"
 echo "User : admin"
 echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 echo ""
-echo "!!!!!!"
-echo "WARNING : PLEASE WAIT EVERYTHING IS UP BEFORE DEBUGGING (watch kubectl -n metrics get deployments/grafana)"
-echo "!!!!!!"
-echo ""
-kubectl -n metrics get deployments/grafana
