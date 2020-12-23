@@ -46,9 +46,11 @@ echo "[5] Install Jenkins with helm"
 sleep 2
 helm upgrade --install jenkins ./helm/jenkins-k8s -n jenkins
 
-#2 - Ajouter des Jobs à Jenkins dynamiquement (/var/jenkins_home/jobs)
+echo "[6] Add dummy jobs to Jenkins"
 #https://github.com/gangsta/jenkins-prometheus-grafana/tree/master/jenkins/jobs
-# kubectl cp jobs /var/jenkins_home/jobs -c JENKINS_CONTAINER
+JENKINS_POD=$(kubectl get pods -n jenkins -l=app='jenkins-k8s' -o jsonpath='{.items[*].metadata.name}')
+kubectl cp jobs jenkins/$JENKINS_POD:/var/jenkins_home/ -c jenkins-k8s
+
 #3 - Installer Prometheus avec HELM en ajoutant un job pour scrapper les valeurs de jenkins (prometheus.yml) :
 #
 #- job_name: 'jenkins'
