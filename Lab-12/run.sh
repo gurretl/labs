@@ -48,6 +48,13 @@ sleep 2
 helm upgrade --install jenkins ./helm/jenkins-k8s -n jenkins
 
 echo "[6] Add dummy jobs to Jenkins"
+# Waiting Jenkins Pods to be in ready state
+echo "Waiting for Jenkins to be ready..."
+sleep 2
+while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
+   sleep 5
+   echo "Waiting for Jenkins to be ready..."
+done
 #https://github.com/gangsta/jenkins-prometheus-grafana/tree/master/jenkins/jobs
 JENKINS_POD=$(kubectl get pods -n jenkins -l=app='jenkins-k8s' -o jsonpath='{.items[*].metadata.name}')
 kubectl cp jobs jenkins/$JENKINS_POD:/var/jenkins_home/ -c jenkins-k8s
@@ -95,14 +102,6 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
 $GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
-
-# Waiting Jenkins Pods to be in ready state
-echo "Waiting for Jenkins to be ready..."
-sleep 2
-while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
-   sleep 5
-   echo "Waiting for Jenkins to be ready..."
-done
 
 while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
    sleep 5
