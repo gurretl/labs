@@ -473,6 +473,14 @@ dashboards:
        gnetId: 8721
        revision: 3
        datasource: Prometheus
+     jenkins-dashboard-1:
+       gnetId: 9964
+       revision: 1
+       datasource: Prometheus
+     jenkins-dashboard-2:
+       gnetId: 10557
+       revision: 1
+       datasource: Prometheus
 #dashboards: {}
   # default:
   #   some-dashboard:
