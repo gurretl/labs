@@ -1,7 +1,11 @@
 # About
 Date : 22th Dec 2020  
 Author: Lionel Gurret  
-Description : Deploy Sample war application on Tomcat using Jenkins
+Description : Deploy Sample war application on Tomcat using Jenkins  
+* Install Tomcat on Minikube
+* Install Jenkins on Minikube
+* Configure Tomcat to let Jenkins deploy apps
+* Then, this README file let you know how to create your Jenkins job
 # Prerequisites
 This script is designed for Minikube !  
 (https://kubernetes.io/fr/docs/tutorials/hello-minikube/ - Click on Launch Terminal)  
