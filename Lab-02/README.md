@@ -24,3 +24,8 @@ From Deploy VM, run the following commands :
 `./1-controller-config.sh`  
 `./2-run-playbook.sh`  
 `-/3-install-helloworld-app.sh`  
+Architecture :  
+<img src="images/0.png" width="600" >  
+  
+You can now play with the following app :  
+<img src="images/1.png" width="600" >  
