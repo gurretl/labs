@@ -59,6 +59,9 @@ done
 JENKINS_POD=$(kubectl get pods -n jenkins -l=app='jenkins-k8s' -o jsonpath='{.items[*].metadata.name}')
 kubectl cp jobs jenkins/$JENKINS_POD:/var/jenkins_home/ -c jenkins-k8s
 sleep 2
+echo "We restart Jenkins to apply new Job imported !!"
+kubectl -n jenkins rollout restart deployment jenkins-jenkins-k8s
+sleep 2
 
 echo "[7] Replace JENKINS_URL_SANS_HTTPS in prometheus.yml"
 sed -i "s,JENKINS_URL_SANS_HTTPS,$JENKINS_URL_SANS_HTTPS," prometheus.yml
@@ -106,6 +109,11 @@ $GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
 while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
    sleep 5
    echo "Waiting for Grafana to be ready."
+done
+
+while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ]; do
+   sleep 5
+   echo "Waiting for Jenkins to be ready..."
 done
 
 # Remove .git to avoid pushing modified files
