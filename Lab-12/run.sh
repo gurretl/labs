@@ -66,6 +66,7 @@ while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerS
    echo "Waiting for Jenkins to be ready..."
 done
 
+exit
 # Remove .git to avoid pushing modified files
 #rm -rf ../.git
 
