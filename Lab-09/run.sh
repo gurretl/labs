@@ -34,6 +34,8 @@ kubectl create ns registry
 # Set Harbor HTTPS Default Port
 PORT_HARBOR=30003
 HARBOR_URL=$url_first-$PORT_HARBOR-$url_second
+HARBOR_URL_SANS_HTTPS=$(echo $HARBOR_URL|awk -F '/' {'print $3'})
+
 # With configure our helm values file
 sed -i "s,HARBOR_URL,$HARBOR_URL," harbor.yml
 
