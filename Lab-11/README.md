@@ -1,7 +1,7 @@
 # About
 Date : 22th Dec 2020  
 Author: Lionel Gurret  
-Description : Install Jenkins and Tomcat on Minikube !
+Description : Deploy Sample war application on Tomcat using Jenkins
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
