@@ -20,25 +20,25 @@ Once your environment is setup, go to Jenkins and do the following :
 * Accept Jenkins default URL
 
 Then, you need to install a plugin in order to deploy a war file in Tomcat.  
-* Go to Manage plugins :
+* Go to Manage plugins :  
 ![](images/1.jpg)
-* Add the following plugin :
+* Add the following plugin :  
 ![](images/2.jpg)
-* Now we will create a new job for our task :
+* Now we will create a new job for our task :  
 ![](images/3.jpg)
-* Create the following job :
+* Create the following job :  
 ![](images/4.jpg)
-* Add this repository as SCM :
+* Add this repository as SCM :  
 ![](images/5.jpg)
-* Choose to connect only to this subdirectory :
+* Choose to connect only to this subdirectory :  
 ![](images/6.jpg)
-* Configure the following :
-![](images/7jpg)
-* Add a Build step :
+* Configure the following :  
+![](images/7.jpg)
+* Add a Build step :  
 ![](images/8.jpg)
-* Configure the container as so (create a new user deployer by clicking on Add with the same password as in our Helm chart) :
+* Configure the container as so (create a new user deployer by clicking on Add with the same password as in our Helm chart) :  
 ![](images/9.jpg)
-* Save and run the job by clicking on :
+* Save and run the job by clicking on :  
 ![](images/10.jpg)
-* Your app is deployed, you should see it at the following URL https://TOMCATURL/sample :
+* Your app is deployed, you should see it at the following URL https://TOMCATURL/sample :  
 ![](images/11.jpg)
