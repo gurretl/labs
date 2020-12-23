@@ -41,6 +41,7 @@ PORT_JENKINS=31000
 sed -i "s,PORT_JENKINS,$PORT_JENKINS," ./helm/jenkins-k8s/values.yaml
 JENKINS_URL=$url_first-$PORT_JENKINS-$url_second
 JENKINS_URL_SANS_HTTPS=$(echo $HARBOR_URL|awk -F '/' {'print $3'})
+
 # helm install
 echo "[5] Install Jenkins with helm"
 sleep 2
@@ -50,15 +51,36 @@ echo "[6] Add dummy jobs to Jenkins"
 #https://github.com/gangsta/jenkins-prometheus-grafana/tree/master/jenkins/jobs
 JENKINS_POD=$(kubectl get pods -n jenkins -l=app='jenkins-k8s' -o jsonpath='{.items[*].metadata.name}')
 kubectl cp jobs jenkins/$JENKINS_POD:/var/jenkins_home/ -c jenkins-k8s
+sleep 2
 
-#3 - Installer Prometheus avec HELM en ajoutant un job pour scrapper les valeurs de jenkins (prometheus.yml) :
-#
-#- job_name: 'jenkins'
-#  metrics_path: /prometheus
-#  static_configs:
-#    - targets: ['JENKINS_URL_WITHOUT_HTTP:443']
-#
+echo "[7] Replace JENKINS_URL_SANS_HTTPS in prometheus.yml"
+sed -i "s,JENKINS_URL_SANS_HTTPS,$JENKINS_URL_SANS_HTTPS," prometheus.yml
+
 #4 - Deployer Grafana avec les dashboards suivants : 9964, 10557 et le datasource Prometheus
+echo "[8] Deploy Grafana and Prometheus"
+# Create a namespace for our stack
+kubectl create ns metrics
+
+# Install (or upgrade) Prometheus (adapt yml file if you use custom files)
+helm upgrade --install prometheus -f prometheus.yml -n metrics prometheus-community/prometheus
+# Expose service to reach them externally
+kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np -n metrics
+
+# Get Prometheus Endpoint
+PORT_PROM=$(kubectl -n metrics get service prometheus-server-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+
+# With Prometheus port, we can configure grafana.yml
+#$PROMETHEUS_URL="$url_first-$PORT_PROM-$url_second"
+sed -i "s,PROMETHEUS_URL,$url_first-$PORT_PROM-$url_second," grafana.yml
+
+# Install (or upgrade) Grafana  (adapt yml file if you use custom files)
+helm upgrade --install grafana -f grafana.yml -n metrics grafana/grafana
+# Expose service to reach them externally
+kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np -n metrics
+
+# Get Grafana Endpoint
+PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
+$GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
 
 # Waiting Jenkins Pods to be in ready state
 echo "Waiting for Jenkins to be ready..."
@@ -68,9 +90,14 @@ while [ "$(kubectl get pods -n jenkins -o jsonpath='{.items[*].status.containerS
    echo "Waiting for Jenkins to be ready..."
 done
 
+while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
+   sleep 5
+   echo "Waiting for Grafana to be ready."
+done
+
 exit
 # Remove .git to avoid pushing modified files
-#rm -rf ../.git
+rm -rf ../.git
 
 # Display all information
 echo "*************************************************************************************************************"
@@ -80,4 +107,11 @@ echo "You can logon Jenkins through this url : $JENKINS_URL"
 echo ""
 echo "User : admin"
 echo "Default Password : P4ssw0rd!"
+echo ""
+echo "You can logon Prometheus Web Interface through this url : $url_first-$PORT_PROM-$url_second"
+echo ""
+echo "You can login Grafana using admin user and the following password (port $PORT_GRAF):"
+echo "URL : $url_first-$PORT_GRAF-$url_second"
+echo "User : admin"
+echo "Password : $(kubectl get secret --namespace metrics grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo)"
 echo ""
