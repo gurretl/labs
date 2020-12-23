@@ -16,5 +16,5 @@ This script is designed for Minikube !
 Once your environment is setup, go to Jenkins and do the following :
 * Unlock Jenkins using the unlock key
 * Install default plugins
-* Create a user
-* Accept default URL
+* Create a Jenkins user
+* Accept Jenkins default URL
