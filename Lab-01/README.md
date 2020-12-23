@@ -11,4 +11,5 @@ Download the code
 Go to this directory and run :  
 `vagrant up`  
 Then, run the following command to get ssh config to reach your VMs :  
-`vagrant ssh-config`
+`vagrant ssh-config`  
+<img src="images/0.png" width="800" >  
