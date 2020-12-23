@@ -1,7 +1,13 @@
 # About
 Date : 23th Dec 2020  
 Author: Lionel Gurret  
-Description : Scrap Jenkins with Prometheus and display informations in Grafana
+Description : Scrap Jenkins with Prometheus and display informations in Grafana  
+* Install Jenkins in Minikube
+* Install Prometheus plugins in Jenkins
+* Add jobs in Jenkins
+* Install Prometheus in Minikube with Jenkins configured as target
+* Install Grafana with Prometheus as datasource and Jenkins public dashboard  
+
 Note : Inspired by https://medium.com/@eng.mohamed.m.saeed/monitoring-jenkins-with-grafana-and-prometheus-a7e037cbb376  
 and https://joostvdg.github.io/blogs/monitor-jenkins-on-k8s/introduction/    
 Thanks a lot guys you helped me a lot !
