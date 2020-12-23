@@ -97,7 +97,7 @@ done
 
 exit
 # Remove .git to avoid pushing modified files
-rm -rf ../.git
+#rm -rf ../.git
 
 # Display all information
 echo "*************************************************************************************************************"
