@@ -38,5 +38,6 @@ Configure the container as so (create a new user deployer by clicking on Add wit
 <img src="images/9.jpg" width="500" >  
 Save and run the job by clicking on :  
 <img src="images/10.jpg" width="200" >  
-Your app is deployed, you should see it at the following URL https://TOMCATURL/sample :  
+
+Your app is deployed, you should see it at the following URL https://TOMCAT_URL/sample :  
 <img src="images/11.jpg" width="500" >  
