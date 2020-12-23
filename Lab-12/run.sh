@@ -109,9 +109,8 @@ while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o 
    echo "Waiting for Grafana to be ready."
 done
 
-exit
 # Remove .git to avoid pushing modified files
-#rm -rf ../.git
+rm -rf ../.git
 
 # Display all information
 echo "*************************************************************************************************************"
