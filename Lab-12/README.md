@@ -13,4 +13,7 @@ This script is designed for Minikube !
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-12`  
-`./run.sh`
+`./run.sh`  
+* Wait some time to let Jobs ru
+* Go to Grafana and look at this nice dashboard :)  
+<img src="images/1.jpg" width="200" >  
