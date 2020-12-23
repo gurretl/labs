@@ -58,6 +58,20 @@ sed -i "s,JENKINS_URL_SANS_HTTPS,$JENKINS_URL_SANS_HTTPS," prometheus.yml
 
 #4 - Deployer Grafana avec les dashboards suivants : 9964, 10557 et le datasource Prometheus
 echo "[8] Deploy Grafana and Prometheus"
+# Install repo prometheus-community
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# If you want to modify prometheus configuration, uncomment this line and configure as you wish
+# In this example, I have provided a default prometheus.yml file for testing
+(cd && helm inspect values prometheus-community/prometheus > custom_prometheus.yml)
+
+# Install repo grafana
+helm repo add grafana https://grafana.github.io/helm-charts
+
+# If you want to modify grafana configuration, uncomment this line and configure as you wish
+# In this example, I have provided a grafana.yml values file for testing
+(cd && helm inspect values grafana/grafana > custom_grafana.yml)
+
 # Create a namespace for our stack
 kubectl create ns metrics
 
