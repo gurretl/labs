@@ -18,3 +18,6 @@ Once your environment is setup, go to Jenkins and do the following :
 * Install default plugins
 * Create a Jenkins user
 * Accept Jenkins default URL
+
+Then :
+![](images/1.jpg)
