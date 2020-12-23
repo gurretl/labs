@@ -10,5 +10,8 @@ This script is designed for Minikube !
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-09`  
-`./run.sh`
+`./run.sh`  
+
+You can now go on Harbor Web interface to configure your repositories !
+<img src="images/1.jpg" width="800" >  
 
