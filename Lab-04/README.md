@@ -9,3 +9,4 @@ Logon :  https://labs.play-with-docker.com/
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-04`  
 `docker-compose up`
+<img src="images/1.png" width="800" >  
