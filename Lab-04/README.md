@@ -8,5 +8,5 @@ Logon :  https://labs.play-with-docker.com/
 # How to launch the Lab
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-04`  
-`docker-compose up`
-<img src="images/1.png" width="500" >  
+`docker-compose up`  
+<img src="images/1.png" width="300" >  
