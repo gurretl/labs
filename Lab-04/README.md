@@ -6,6 +6,6 @@ Description : Docker Compose - Deploy a Voting App !
 # Prerequisites
 Logon :  https://labs.play-with-docker.com/
 # How to launch the Lab
-`https://github.com/gurretl/labs.git`  
+`git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-04`  
 `docker-compose up`
