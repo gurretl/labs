@@ -10,4 +10,8 @@ This script is designed for Minikube !
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-03`  
 `./run.sh`
+Then go to Grafana and see all dashboards !
+<img src="images/1.png" width="800" >  
+<img src="images/2.png" width="800" > 
+<img src="images/3.png" width="800" >  
 
