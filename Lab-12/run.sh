@@ -64,7 +64,7 @@ kubectl -n jenkins rollout restart deployment jenkins-jenkins-k8s
 sleep 2
 
 echo "[7] Replace JENKINS_URL_SANS_HTTPS in prometheus.yml"
-sed -i 's,JENKINS_URL_SANS_HTTPS,"$JENKINS_URL_SANS_HTTPS",' prometheus.yml
+sed -i "s,JENKINS_URL_SANS_HTTPS,$JENKINS_URL_SANS_HTTPS," prometheus.yml
 
 echo "[8] Deploy Grafana and Prometheus"
 # Install repo prometheus-community
