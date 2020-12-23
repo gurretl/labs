@@ -66,7 +66,6 @@ sleep 2
 echo "[7] Replace JENKINS_URL_SANS_HTTPS in prometheus.yml"
 sed -i "s,JENKINS_URL_SANS_HTTPS,$JENKINS_URL_SANS_HTTPS," prometheus.yml
 
-#4 - Deployer Grafana avec les dashboards suivants : 9964, 10557 et le datasource Prometheus
 echo "[8] Deploy Grafana and Prometheus"
 # Install repo prometheus-community
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -104,7 +103,7 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
-$GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
+$GRAFANA_URL=$url_first-$PORT_GRAF-$url_second
 
 while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
    sleep 5
