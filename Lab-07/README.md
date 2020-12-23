@@ -10,5 +10,9 @@ This script is designed for Minikube !
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-07`  
-`./run.sh`
+`./run.sh`  
+
+You can now install apps through Kubeapps :
+<img src="images/1.jpg" width="800" >  
+
 
