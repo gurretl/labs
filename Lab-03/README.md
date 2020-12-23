@@ -2,6 +2,10 @@
 Date : 18th Nov 2020  
 Author: Lionel Gurret  
 Description : Install Prometheus / Grafana Stack on Hello Minikube with Helm !  
+* Install Grafana on Minikube using Helm
+* Install Prometheus on Minikube using Helm
+* Configure Grafana with public dashboard to monitor Minikube
+* Configure Grafana to use Prometheus as Datasource
 # LinkedIn article related
 # Prerequisites
 This script is designed for Minikube !  
