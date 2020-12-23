@@ -19,7 +19,7 @@ Once your environment is setup, go to Jenkins and do the following :
 
 Then, you need to install a plugin in order to deploy a war file in Tomcat.  
 * Go to Manage plugins :  
-![](images/1.jpg)
+< img src="images/1.jpg" width="100">
 * Add the following plugin :  
 ![](images/2.jpg)
 * Now we will create a new job for our task :  
