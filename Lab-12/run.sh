@@ -103,7 +103,7 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
-$GRAFANA_URL=$url_first-$PORT_GRAF-$url_second
+GRAFANA_URL=$url_first-$PORT_GRAF-$url_second
 
 while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o jsonpath='{.items[*].status.containerStatuses[0].ready}')" != "true" ];do
    sleep 5
