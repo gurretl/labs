@@ -17,3 +17,9 @@ This script is designed for Minikube !
 `./run.sh`  
 * Go to Jenkins web interface a check and play with jobs and delivery pipeline created
 <img src="images/1.jpg" width="800" >  
+You can accept or deny the manual action which will virtually deploy your application from the pipeline view :  
+<img src="images/2.jpg" width="800" >  
+Or directly from the Job view :  
+<img src="images/3.jpg" width="800" >  
+
+
