@@ -55,3 +55,5 @@ Lionel
 ## Lab 12
 **Jenkins** : Scrap Jenkins with Prometheus and display information in Grafana ! ([README](https://github.com/gurretl/labs/blob/main/Lab-12/README.md))  
 
+## Lab 13
+**Jenkins** : Deploy Jenkins with a Dummy delivery pipeline ! ([README](https://github.com/gurretl/labs/blob/main/Lab-13/README.md))  
