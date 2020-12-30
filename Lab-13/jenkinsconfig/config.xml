@@ -1,0 +1,67 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.263.1</version>
+  <installStateName>RUNNING</installStateName>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
+    <denyAnonymousReadAccess>false</denyAnonymousReadAccess>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>all</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+    <se.diabol.jenkins.workflow.WorkflowPipelineView plugin="delivery-pipeline-plugin@1.4.2">
+      <owner class="hudson" reference="../../.."/>
+      <name>My Delivery Pipeline view</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <updateInterval>2</updateInterval>
+      <noOfPipelines>3</noOfPipelines>
+      <noOfColumns>1</noOfColumns>
+      <sorting>none</sorting>
+      <allowPipelineStart>false</allowPipelineStart>
+      <allowAbort>false</allowAbort>
+      <showChanges>false</showChanges>
+      <showAbsoluteDateTime>false</showAbsoluteDateTime>
+      <maxNumberOfVisiblePipelines>-1</maxNumberOfVisiblePipelines>
+      <componentSpecs>
+        <se.diabol.jenkins.workflow.WorkflowPipelineView_-ComponentSpec>
+          <name>DummyPipeline</name>
+          <job>DummyPipeline</job>
+        </se.diabol.jenkins.workflow.WorkflowPipelineView_-ComponentSpec>
+      </componentSpecs>
+      <linkToConsoleLog>false</linkToConsoleLog>
+      <description></description>
+    </se.diabol.jenkins.workflow.WorkflowPipelineView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>50000</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>
