@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Build Image'
+                sleep 5
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Test Image'
+                sleep 5
+            }
+        }
+        stage('Release') {
+            steps {
+                echo 'Push Image to repository'
+                sleep 5
+            }
+        }
+        stage('Deploy') {
+            steps {
+                input('Do you want to proceed and deploy app ?')
+            }
+        }
+
+        stage('Deploying') {
+            steps {
+                echo 'Deploy Application'
+                sleep 5
+            }
+    }
+}
+
