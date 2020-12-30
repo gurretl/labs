@@ -72,7 +72,7 @@ done
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
 echo "*************************************************************************************************************"
-echo "You can login Jenkins through this url : $JENKINS_URL"
+echo "You can login Jenkins through this url : $JENKINS_URL/login?from=%2F"
 echo "User : admin"
 echo "Password : P4ssw0rd!"
 echo ""
