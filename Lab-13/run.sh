@@ -57,6 +57,7 @@ done
 #https://github.com/gangsta/jenkins-prometheus-grafana/tree/master/jenkins/jobs
 JENKINS_POD=$(kubectl get pods -n jenkins -l=app='jenkins-k8s' -o jsonpath='{.items[*].metadata.name}')
 kubectl cp jobs jenkins/$JENKINS_POD:/var/jenkins_home/ -c jenkins-k8s
+kubectl cp jenkinsconfig/config.xml jenkins/$JENKINS_POD:/var/jenkins_home/config.xml -c jenkins-k8s
 sleep 2
 echo "We restart Jenkins to apply new Job imported !!"
 kubectl -n jenkins rollout restart deployment jenkins-jenkins-k8s
