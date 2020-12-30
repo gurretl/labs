@@ -4,8 +4,8 @@ Author: Lionel Gurret
 Description : Deploy Jenkins with a dummy CI/CD Pipeline
 * Install Jenkins in Minikube
 * Add jobs in Jenkins
-* Add a delivery Pipeline
-
+* Add a dummy delivery Pipeline based on the Jenkinsfile :  
+<img src="images/0.jpg" width="800" >  
 # LinkedIn article related
 TO COMPLETE
 # Prerequisites
