@@ -16,7 +16,7 @@ This script is designed for Minikube !
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-13`  
 `./run.sh`  
-* Go to Jenkins web interface a check and play with jobs and delivery pipeline created
+* Go to Jenkins web interface a check and play with jobs and delivery pipeline created (wait 5 minutes to see the first build automatically run)  
 <img src="images/1.jpg" width="800" >  
 You can accept or deny the manual action which will virtually deploy your application from the pipeline view :  
 <img src="images/2.jpg" width="800" >  
