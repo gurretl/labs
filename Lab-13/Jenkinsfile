@@ -30,6 +30,6 @@ pipeline {
                 echo 'Deploy Application'
                 sleep 5
             }
-    }
+		}
+	}
 }
-
