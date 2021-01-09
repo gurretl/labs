@@ -57,3 +57,6 @@ Lionel
 
 ## Lab 13
 **Jenkins** : Deploy Jenkins with a Dummy delivery pipeline ! ([README](https://github.com/gurretl/labs/blob/main/Lab-13/README.md))  
+
+## Lab 14
+**Kubernetes** : Play with Volumes (EmptyDir) on Kubernetes ! ([README](https://github.com/gurretl/labs/blob/main/Lab-14/README.md))  
