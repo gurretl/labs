@@ -1,0 +1,52 @@
+version: "3.5"
+
+services:
+  pdns-mysql:
+    image: mariadb:10.1
+    volumes:
+      - /root/lionel/data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
+
+  pdns-master:
+    image: psitrax/powerdns
+    volumes:
+      - type: bind
+        source: /root/lionel/data/conf.d
+        target: /etc/pdns/conf.d
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_PASS: "supersecret"
+      MYSQL_HOST: pdns-mysql
+      MYSQL_PORT: "3306"
+      MYSQL_DNSSEC: "yes"
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 8081:8081
+    command: "--cache-ttl=120"
+    depends_on:
+      - pdns-mysql
+
+  pdns-admin:
+    image: ngoduykhanh/powerdns-admin:latest
+#    volumes:
+#      - type: bind
+#        source: /root/lionel/data/pda-data
+#        target: /data
+    ports:
+      - 9191:80
+    depends_on:
+      - pdns-master
+
+  pdns-phpmyadmin:
+    image: phpmyadmin
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_PASS: "supersecret"
+      PMA_HOST: pdns-mysql
+    ports:
+      - 8080:80
+    depends_on:
+      - pdns-mysql
+
