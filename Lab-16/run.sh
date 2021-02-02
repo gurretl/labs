@@ -11,11 +11,16 @@ echo "[2] Now we can deploy our applicatoin :"
 sleep 2
 docker-compose up -d
 sleep 5
-
+echo ""
+echo ""
+echo ""
+echo "**************** INFO *******************"
 echo "You can now connect to the 9191 port to display PowerDNS"
 echo "Please create an admin user."
 echo ""
-echo "Configure API with the following :"
-echo "API URL : http://pdns-master:8081/"
-echo "Password: changeme"
+echo "Configure API with the following asap (default screen):"
+echo "PDNS API URL : http://pdns-master:8081/"
+echo "PDNS API KEY : changeme"
+echo "PDNS VERSION: 4.3.1"
+echo ""
 
