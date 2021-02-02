@@ -63,3 +63,6 @@ Lionel
 
 ## Lab 15
 **Docker** : Create a Docker image with Ubuntu and Apache ! ([README](https://github.com/gurretl/labs/blob/main/Lab-15/README.md))  
+
+## Lab 16
+**Docker** : Deploy several containers to run PowerDNS ! ([README](https://github.com/gurretl/labs/blob/main/Lab-16/README.md))  
