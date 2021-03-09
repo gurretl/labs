@@ -66,3 +66,6 @@ Lionel
 
 ## Lab 16
 **Docker** : Deploy several containers to run PowerDNS ! ([README](https://github.com/gurretl/labs/blob/main/Lab-16/README.md))  
+
+## Lab 17
+**Docker** : Deploy several images to see how to leverage multistage and alpine ! ([README](https://github.com/gurretl/labs/blob/main/Lab-17/README.md))  
