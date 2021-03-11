@@ -1,7 +1,7 @@
 # About
 Date : 09 Mar 20201
 Author: Lionel Gurret  
-Description : Compare Docker Images Size
+Description : Compare Docker Images Size  
 # LinkedIn article related
 # Prerequisites
 Get a Docker environment.  
