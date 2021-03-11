@@ -69,3 +69,6 @@ Lionel
 
 ## Lab 17
 **Docker** : Deploy several images to see how to leverage multistage and alpine ! ([README](https://github.com/gurretl/labs/blob/main/Lab-17/README.md))  
+
+## Lab 18
+**Docker** : Populate a Docker Compose from one or more templates !([README](https://github.com/gurretl/labs/blob/main/Lab-18/README.md))  
