@@ -1,7 +1,7 @@
 # About
-Date : 11 Mar 20201
+Date : 11 Mar 20201  
 Author: Lionel Gurret  
-Description : Test Docker Compose Generator
+Description : Test Docker Compose Generator  
 Based on : https://github.com/brettmc/docker-compose-generator
 # LinkedIn article related
 # Prerequisites
