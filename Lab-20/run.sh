@@ -16,10 +16,13 @@ echo "[3] Configure Network"
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ARGO_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services argocd-server -n argocd)
 sleep 2
-echo "[4] Check that the file has been copied"
+echo "[4] Create our first app (you can do it through the webinterface too !)"
+kubectl -n argocd apply -f app.yml
+PASSWORD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)
 sleep 2
 echo ""
-echo "******************************************************"
+echo "**********************************************************"
 echo "You can now play with ArgoCD on port : $ARGO_PORT !"
-echo "******************************************************"
+echo "Here is your admin password (please change it) : $PASSWORD"
+echo "**********************************************************"
 
