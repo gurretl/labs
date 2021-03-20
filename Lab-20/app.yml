@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: voting-app
+spec:
+  destination:
+    name: ''
+    namespace: votingapp
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ./
+    repoURL: 'https://github.com/mmumshad/kubernetes-example-voting-app'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
