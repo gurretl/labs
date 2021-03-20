@@ -19,4 +19,6 @@ echo ""
 echo "*****************************************************************"
 echo "You can now play with ArgoCD on port : $ARGO_PORT !"
 echo "Here is your admin password (please change it) : $PASSWORD"
+echo "It's possible that the application is not available immediatly"
+echo "Please wait or edit a apply a small change :)
 echo "*****************************************************************"
