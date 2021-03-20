@@ -7,11 +7,7 @@ sleep 2
 kubectl create ns argocd
 echo "[2] Install ArgoCD"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-sleep 2
-while [ "$(kubectl get pods -n argocd -o jsonpath='{.status.phase}')" != "Running" ]; do
-   sleep 5
-   echo "Waiting for Pods to be ready."
-done
+sleep 10
 echo "[3] Configure Network"
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
 ARGO_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services argocd-server -n argocd)
@@ -21,8 +17,9 @@ kubectl -n argocd apply -f app.yml
 PASSWORD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)
 sleep 2
 echo ""
-echo "**********************************************************"
+echo "*****************************************************************"
 echo "You can now play with ArgoCD on port : $ARGO_PORT !"
 echo "Here is your admin password (please change it) : $PASSWORD"
-echo "**********************************************************"
-
+echo "*****************************************************************"
+echo "Here are ports you can use to test default app : 33001 anad 33002
+echo "*****************************************************************"

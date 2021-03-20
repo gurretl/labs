@@ -8,8 +8,8 @@ spec:
     namespace: votingapp
     server: 'https://kubernetes.default.svc'
   source:
-    path: ./
-    repoURL: 'https://github.com/gurretl/Lab-20/voting-app'
+    path: Lab-20/voting-app
+    repoURL: 'https://github.com/gurretl/labs.git'
     targetRevision: HEAD
   project: default
   syncPolicy:
