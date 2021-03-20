@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: ./
-    repoURL: 'https://github.com/mmumshad/kubernetes-example-voting-app'
+    repoURL: 'https://github.com/gurretl/Lab-20/voting-app'
     targetRevision: HEAD
   project: default
   syncPolicy:
