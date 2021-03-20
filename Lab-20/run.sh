@@ -15,13 +15,8 @@ sleep 2
 echo "[4] Create our first app (you can do it through the webinterface too !)"
 kubectl -n argocd apply -f app.yml
 PASSWORD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)
-sleep 10
-VOTE_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services voting-service -n votingapp)
-RESULT_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services result-service -n votingapp)
 echo ""
 echo "*****************************************************************"
 echo "You can now play with ArgoCD on port : $ARGO_PORT !"
 echo "Here is your admin password (please change it) : $PASSWORD"
-echo "*****************************************************************"
-echo "Voting App ports : $VOTE_PORT and $RESULT_PORT"
 echo "*****************************************************************"
