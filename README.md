@@ -74,8 +74,8 @@ Lionel
 **Docker** : Populate a Docker Compose from one or more templates !([README](https://github.com/gurretl/labs/blob/main/Lab-18/README.md))  
 
 ## Lab 19
-**Ansible** : Get Subelements from tab in Ansible Playbook ([README](https://github.com/gurretl/labs/blob/main/Lab-18/README.md))
+**Ansible** : Get Subelements from tab in Ansible Playbook ([README](https://github.com/gurretl/labs/blob/main/Lab-19/README.md))
 
 ## Lab 20
-**Kubernetes** : Deploy your first App with ArgoCD ! ([README](https://github.com/gurretl/labs/blob/main/Lab-19/README.md))
+**Kubernetes** : Deploy your first App with ArgoCD ! ([README](https://github.com/gurretl/labs/blob/main/Lab-20/README.md))
 
