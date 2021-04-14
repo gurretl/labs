@@ -1,30 +1,12 @@
 #!/bin/bash
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-NOF_HOSTS=8
+NOF_HOSTS=3
 
 NETWORK_NAME="ansible.lab"
 WORKSPACE="${BASEDIR}/lab"
 
 HOSTPORT_BASE=${HOSTPORT_BASE:-42726}
-# Extra ports per host to expose. Should contain $NOF_HOSTS variables
-#EXTRA_PORTS=( "8080" "30000" "443" )
-# Port Mapping
-# +-----------+----------------+-------------------+
-# | Container | Container Port |     Host Port     |
-# +-----------+----------------+-------------------+
-# |   host0   |       80       | $HOSTPORT_BASE    |
-# +-----------+----------------+-------------------+
-# |   host1   |       80       | $HOSTPORT_BASE+1  |
-# +-----------+----------------+-------------------+
-# |   host2   |       80       | $HOSTPORT_BASE+2  |
-# +-----------+----------------+-------------------+
-# |   host0   | EXTRA_PORTS[0] | $HOSTPORT_BASE+3  |
-# +-----------+----------------+-------------------+
-# |   host1   | EXTRA_PORTS[1] | $HOSTPORT_BASE+4  |
-# +-----------+----------------+-------------------+
-# |   host2   | EXTRA_PORTS[2] | $HOSTPORT_BASE+5  |
-# +-----------+----------------+-------------------+
 
 DOCKER_IMAGETAG=${DOCKER_IMAGETAG:-latest}
 DOCKER_HOST_IMAGE="centos-7-ansible-docker-host:${DOCKER_IMAGETAG}"
@@ -60,9 +42,6 @@ function runHostContainer() {
     local name=$1
     local image=$2
     local port1=$(($HOSTPORT_BASE + $3))
-    #local port2=$(($HOSTPORT_BASE + $3 + $NOF_HOSTS))
-
-    #echo "starting container ${name}: mapping hostport $port1 -> container port 80 && hostport $port2 -> container port ${EXTRA_PORTS[$3]}"
     echo "starting container ${name}: mapping hostport $port1 -> container port 80"
     if doesContainerExist ${name}; then
         docker start "${name}" > /dev/null

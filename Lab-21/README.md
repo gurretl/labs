@@ -10,4 +10,5 @@ This script is designed for Minikube !
 `git clone https://github.com/gurretl/labs.git`  
 `cd labs/Lab-21`  
 `./build-images.sh`
-`sudo ./run.sh`
+Edit run.sh to specify the number of hosts you need for your Lab (NOF_HOSTS)
+`./run.sh`
