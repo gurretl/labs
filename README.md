@@ -79,3 +79,5 @@ Lionel
 ## Lab 20
 **Kubernetes** : Deploy your first App with ArgoCD ! ([README](https://github.com/gurretl/labs/blob/main/Lab-20/README.md))
 
+## Lab 21
+**Ansible** : Deploy an Ansible Lab with Docker ! ([README](https://github.com/gurretl/labs/blob/main/Lab-21/README.md))
