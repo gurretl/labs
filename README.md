@@ -81,3 +81,6 @@ Lionel
 
 ## Lab 21
 **Ansible** : Deploy an Ansible Lab with Docker ! ([README](https://github.com/gurretl/labs/blob/main/Lab-21/README.md))
+
+## Lab 22
+**Ansible** : Deploy an Ansible Lab with Docker and Benchmark Mitogen and other optimzations ! ([README](https://github.com/gurretl/labs/blob/main/Lab-22/README.md))
