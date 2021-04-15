@@ -90,6 +90,8 @@ function setupFiles() {
 [defaults]
 host_key_checking = False
 inventory = ./inventory
+# Logging
+callback_whitelist = profile_tasks
 EOF
 }
 

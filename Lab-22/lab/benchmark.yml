@@ -1,9 +1,9 @@
 - hosts: all
   tasks:
-    - name: "With command" 
+    - name: "With command"
       command: touch /tmp/lionel
-      with_sequence: start=1 end="{{end|default(5)}}"
-  tags: test-module
+      with_sequence: start=1 end="{{end|default(100)}}"
+  tags: with-command
 
 - hosts: all
   tasks:
@@ -12,22 +12,24 @@
         path: /tmp/lionel
         state: touch
       with_sequence: start=1 end="{{end|default(100)}}"
-  tags: test-module
+  tags: with-module
 
 - hosts: all
   tasks:
-  - file:
+  - name: "Create a directory"
+    file:
       dest: /tmp/templates
       state: "{{item}}"
     with_items: ["absent", "directory"]
 
-  - copy:
+  - name: "Copy 100 files"
+    copy:
       dest: /tmp/templates/{{item}}
       mode: 0755
       content:
         Hello from "{{item}}"
-    with_sequence: start=1 end="{{end|default(20)}}" 
-  tags: test-templates 
+    with_sequence: start=1 end="{{end|default(100)}}"
+  tags: test-templates
 
 - hosts: all
   become: yes
