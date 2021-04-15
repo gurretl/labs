@@ -1,7 +1,7 @@
 #!/bin/bash
 BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-NOF_HOSTS=8
+NOF_HOSTS=1
 
 NETWORK_NAME="ansible.lab"
 WORKSPACE="${BASEDIR}/lab"
