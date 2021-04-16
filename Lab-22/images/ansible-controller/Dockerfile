@@ -81,7 +81,6 @@ WORKDIR /root/lab
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && mkdir /etc/ansible
 
 COPY common/ansible.cfg /etc/ansible/ansible.cfg
-COPY common/ansible.cfg.optimized /etc/ansible/ansible.cfg.optimized
 
 COPY ["common/id_rsa", "common/id_rsa.pub", "/root/.ssh/"]
 
