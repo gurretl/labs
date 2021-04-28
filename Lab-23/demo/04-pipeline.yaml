@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: 04-pipeline
+spec:
+  tasks:
+    - name: first-task
+      params:
+        - name: pause-duration
+          value: "2"
+        - name: say-what
+          value: "Hello, this is the first task"
+      taskRef:
+        name: 03-tasks
+    - name: second-task
+      params:
+        - name: say-what
+          value: "Happening after task 1, in parallel with task 3"
+        - name: pause-duration
+          value: "2"
+      taskRef:
+        name: 03-tasks
+      runAfter: 
+        - first-task
+    - name: third-task
+      params:
+        - name: say-what
+          value: "Happening after task 1, in parallel with task 2"
+        - name: pause-duration
+          value: "1"
+      taskRef:
+        name: 03-tasks
+      runAfter: 
+        - first-task
+    - name: fourth-task
+      params:
+        - name: say-what
+          value: "Happening after task 2 and 3"
+      taskRef:
+        name: 03-tasks
+      runAfter: 
+        - second-task
+        - third-task
