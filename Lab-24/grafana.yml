@@ -378,6 +378,7 @@ extraVolumeMounts: []
 ##
 plugins:
   - grafana-strava-datasource
+  - grafana-worldmap-panel
   # - digrich-bubblechart-panel
   # - grafana-clock-panel
 
