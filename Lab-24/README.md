@@ -1,7 +1,7 @@
 # About
-Date : 18th Nov 2020  
+Date : 11th May 2021  
 Author: Lionel Gurret  
-Description : Install Prometheus / Grafana Stack on Hello Minikube with Helm !  
+Description : Install Grafana and Strava Plugin on Hello Minikube with Helm !  
 * Install Grafana on Minikube using Helm
 * Configure Grafana with Strava plugin
 # LinkedIn article related
