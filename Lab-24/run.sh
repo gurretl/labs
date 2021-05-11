@@ -48,6 +48,11 @@ while [ "$(kubectl get pods -n metrics -l=app.kubernetes.io/instance=grafana -o 
    echo "Waiting for Grafana to be ready."
 done
 
+# Create folder for Strava (https://grafana.com/grafana/plugins/grafana-strava-datasource/)
+GRAF_POD=$(kubectl -n metrics get pods | awk -F " " {'print $1'}|grep -v NAME)
+kubectl -n metrics exec $GRAF_POD -- mkdir /var/lib/grafana/strava
+kubectl -n metrics exec $GRAF_POD -- export GF_STRAVA_DS_DATA_PATH=/var/lib/grafana/strava
+
 # Display all information
 echo "*************************************************************************************************************"
 echo "********************************** ENVIRONMENT CONFIGURED YOU CAN PLAY NOW **********************************"
