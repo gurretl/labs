@@ -87,3 +87,6 @@ Lionel
 
 ## Lab 23
 **Tekton** : Deploy a Tekton Lab with few examples !! ([README](https://github.com/gurretl/labs/blob/main/Lab-23/README.md))
+
+## Lab 24
+**Helm** : Install Grafana to display Strava on Hello Minikube with Helm ! ([README](https://github.com/gurretl/labs/blob/main/Lab-24/README.md))
