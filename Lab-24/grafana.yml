@@ -376,7 +376,8 @@ extraVolumeMounts: []
 
 ## Pass the plugins you want installed as a list.
 ##
-plugins: []
+plugins:
+  - grafana-strava-datasource
   # - digrich-bubblechart-panel
   # - grafana-clock-panel
 
@@ -386,11 +387,7 @@ plugins: []
 datasources:
   datasources.yaml:
     apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: PROMETHEUS_URL
-      isDefault: true
+    datasources: []
 #datasources: {}
 #  datasources.yaml:
 #    apiVersion: 1
@@ -463,16 +460,7 @@ dashboardProviders:
 ##
 ## dashboards per provider, use provider name as key.
 ##
-dashboards:
-   default:
-     k8s-overview:
-       gnetId: 8685
-       revision: 1
-       datasource: Prometheus
-     k8s-details:
-       gnetId: 8721
-       revision: 3
-       datasource: Prometheus
+dashboards: {}
 #dashboards: {}
   # default:
   #   some-dashboard:
