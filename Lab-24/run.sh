@@ -38,7 +38,7 @@ kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana
 
 # Get Grafana Endpoint
 PORT_GRAF=$(kubectl -n metrics get service grafana-np -o yaml|grep nodePort|awk -F ': ' {'print $2'})
-$GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
+GRAFANA_URL="$url_first-$PORT_GRAF-$url_second"
 
 # Remove .git directory to avoid pushing unwanted changes to GitHub
 #rm -rf ../.git
