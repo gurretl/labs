@@ -14,7 +14,7 @@ ARGO_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services argocd-
 sleep 2
 echo "[4] Create our first app (you can do it through the webinterface too !)"
 kubectl -n argocd apply -f app.yml
-PASSWORD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2)
+PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 echo ""
 echo "*****************************************************************"
 echo "You can now play with ArgoCD on port : $ARGO_PORT !"
