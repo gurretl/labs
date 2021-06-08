@@ -8,7 +8,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-  - port: 33002
+  #- port: 33002
+  - port: 33202
     targetPort: 80
   selector:
      name: result-app-pod
