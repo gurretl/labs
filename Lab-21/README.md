@@ -11,4 +11,5 @@ This script is designed for Docker Playground !
 `cd labs/Lab-21`  
 `./build-images.sh`  
 Edit run.sh script to specify the number of hosts you need for your Lab (NOF_HOSTS)  
-`./run.sh`
+`./run.sh`  
+You should be logged in the ansible controller, all needed files ar in /root/lab.
