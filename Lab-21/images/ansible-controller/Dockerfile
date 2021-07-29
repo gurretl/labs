@@ -76,7 +76,7 @@ ENV \
 DISTRIBUTION=alpine \
 ANSIBLE_VERSION=${ANSIBLE_VERSION} \
 
-WORKDIR /root/lab
+WORKDIR=/root/lab
 
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && mkdir /etc/ansible
 
