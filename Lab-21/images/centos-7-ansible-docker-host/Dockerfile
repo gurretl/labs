@@ -24,7 +24,7 @@ RUN test -f /etc/ssh/ssh_host_rsa_key || /usr/bin/ssh-keygen -q -t rsa -f /etc/s
 RUN test -f /etc/ssh/ssh_host_ed25519_key || /usr/bin/ssh-keygen -q -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -C '' -N ''
 RUN sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 #RUN /usr/sbin/sshd -D
-WORKDIR /root
+WORKDIR=/root
 ENV ALLOW_EXIT true
 CMD ["/usr/sbin/init"]
 
