@@ -11,7 +11,7 @@ This script is designed for Minikube !
 Check this article if facing the same bug : https://github.com/grafana/strava-datasource/issues/2
 # How to run the lab
 `git clone https://github.com/gurretl/labs.git`  
-`cd labs/Lab-03`  
+`cd labs/Lab-24`  
 `./run.sh`  
 Then go to Grafana and follow the following documentation https://github.com/grafana/strava-datasource/blob/master/docs/configuration.md
 <img src="images/1.png" width="800" >  
