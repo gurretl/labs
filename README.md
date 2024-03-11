@@ -90,3 +90,9 @@ Lionel
 
 ## Lab 24
 **Helm** : Install Grafana to display Strava on Hello Minikube with Helm ! ([README](https://github.com/gurretl/labs/blob/main/Lab-24/README.md))
+
+## Lab 25
+**Terragrunt** : Your first Terragrunt project! ([README](https://github.com/gurretl/labs/blob/main/Lab-25/README.md))
+
+## Lab 26
+**Terraform** : Precommits ([README](https://github.com/gurretl/labs/blob/main/Lab-26/README.md))
