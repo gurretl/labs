@@ -1,0 +1,22 @@
+---
+formatter: markdown
+content: |-
+  {{ .Providers }}
+
+  {{ .Resources }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+output:
+  file: README.md
+  mode: inject
+  template: |-
+    <!-- BEGIN_AUTOMATED_TF_DOCS_BLOCK -->
+    {{ .Content }}
+    <!-- END_AUTOMATED_TF_DOCS_BLOCK -->
+settings:
+  lockfile: false
+sort:
+  enabled: true
+  by: required
