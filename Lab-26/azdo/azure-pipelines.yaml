@@ -1,0 +1,81 @@
+parameters:
+# Enter the project name
+- name: projectName
+  type: string
+  default: ''
+  displayName: 'Project Name'
+
+# Enter the storage account name
+- name: storageAccountName
+  type: string
+  default: ''
+  displayName: 'Storage Account Name'
+
+variables:
+  projectName: ${{ parameters.projectName }}
+  storageAccountName: ${{ parameters.storageAccountName }}
+
+trigger:
+- none
+
+pool:
+  name: Laptop Lionel
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Prepare Credentials'
+  inputs:
+    addSpnToEnvironment: true
+    azureSubscription: 'devops-dev-account@project1'
+    scriptLocation: 'inlineScript'
+    scriptType: 'bash'
+    inlineScript: |
+      set -euo pipefail
+      echo "##vso[task.setvariable variable=AZURE_CLIENT_ID;issecret=true]${servicePrincipalId}"
+      echo "##vso[task.setvariable variable=AZURE_CLIENT_SECRET;issecret=true]${servicePrincipalKey}"
+      echo "##vso[task.setvariable variable=AZURE_SUBSCRIPTION_ID;issecret=true]$(az account show --query 'id' -o tsv)"
+      echo "##vso[task.setvariable variable=AZURE_TENANT_ID;issecret=true]${tenantId}"
+
+- task: AzureCLI@2
+  displayName: 'Generate SAS'
+  inputs:
+    azureSubscription: 'devops-dev-account@project1'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      end=$(date -u -d "30 minutes" '+%Y-%m-%dT%H:%MZ')
+      start=$(date -u '+%Y-%m-%dT%H:%MZ')
+      public_ip=$(curl -s https://api.ipify.org)
+      sas_token=$(az storage fs directory generate-sas --account-name $(storageAccountName) --file-system tfstate --name $(projectName) --permissions rcwdl --auth-mode login --expiry $end --as-user --https-only --start $start --ip $public_ip)
+      echo "##vso[task.setvariable variable=sasToken]$sas_token"
+
+- task: Bash@3
+  name: 'terraform_init'
+  displayName: 'Terraform Init'
+  env:
+    ARM_CLIENT_ID: $(AZURE_CLIENT_ID)
+    ARM_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+    ARM_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+    ARM_TENANT_ID: $(AZURE_TENANT_ID)
+  inputs:
+    targetType: 'inline'
+    workingDirectory: iac
+    script: |
+      terraform init -backend-config="storage_account_name=$(storageAccountName)" \
+        -backend-config="container_name=tfstate" \
+        -backend-config="key=$(projectName)/dev.terraform.tfstate" \
+        -backend-config="sas_token=$(sasToken)"
+
+- task: Bash@3
+  name: 'terraform_plan'
+  displayName: 'Terraform Plan'
+  env:
+    ARM_CLIENT_ID: $(AZURE_CLIENT_ID)
+    ARM_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+    ARM_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+    ARM_TENANT_ID: $(AZURE_TENANT_ID)
+  inputs:
+    targetType: 'inline'
+    workingDirectory: iac
+    script: |
+      terraform plan
