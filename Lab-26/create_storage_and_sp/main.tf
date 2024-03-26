@@ -55,11 +55,6 @@ resource "azurerm_role_definition" "storage_account" {
       "Microsoft.Storage/storageAccounts/blobServices/containers/read",
       "Microsoft.Storage/storageAccounts/blobServices/generateUserDelegationKey/action"
     ]
-    data_actions = [
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/read",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/write",
-      "Microsoft.Storage/storageAccounts/blobServices/containers/blobs/add/action"
-    ]
   }
 
   assignable_scopes = [
