@@ -3,4 +3,4 @@ Date : 11th March 2024
 Author: Lionel Gurret  
 Description : Terraform Precommits  
 # YouTube Video
-[](Link)
+[https://youtu.be/VGfaDhiyL3w](Link)

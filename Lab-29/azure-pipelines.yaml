@@ -1,0 +1,62 @@
+# https://marketplace.visualstudio.com/items?itemName=qetza.replacetokens
+
+trigger:
+  - none
+
+pool:
+  name: Laptop Lionel
+
+variables:
+- group: vargroup
+- name: variableGroupName
+  value: '1'
+
+stages:
+  - stage: "PipelineEncodeVars"
+    jobs:
+    - job:
+      displayName: "Display vargroup values"
+      workspace:
+        clean: all
+      steps:
+        - task: AzureCLI@2
+          displayName: 'Create file'
+          inputs:
+            addSpnToEnvironment: true
+            azureSubscription: 'myserviceconnection'
+            scriptLocation: 'inlineScript'
+            scriptType: 'bash'
+            inlineScript: |
+              echo "-------------------"
+              echo "Connection to azdo"
+              echo "-------------------"
+              echo $(System.AccessToken) | az devops login             
+              echo "--------------------------------"
+              echo "Get all variables in my vargroup"
+              echo "--------------------------------"
+              secrets=$(az pipelines variable-group variable list --group-id $(variableGroupName) --org $(System.CollectionUri) --project $(System.TeamProjectId) --detect false --output json)
+              echo "----------------------"
+              echo "Creating variables.txt"
+              echo "----------------------"
+              echo "$secrets" | jq -r 'to_entries | map("\(.key):\(if .value.value == null then "__\(.key)__" else .value.value end)") | .[]' > variables.txt
+        - task: replacetokens@6
+          displayName: "Replace Secured variables"
+          inputs:
+            sources: 'variables.txt'
+            tokenPattern: 'doubleunderscores'
+        - task: AzureCLI@2
+          displayName: 'Display variables values'
+          inputs:
+            addSpnToEnvironment: true
+            azureSubscription: 'myserviceconnection'
+            scriptLocation: 'inlineScript'
+            scriptType: 'bash'
+            inlineScript: |
+              mapfile -t lines < variables.txt
+              for line in "${lines[@]}"; do
+                name=$(echo "$line" | awk -F ':' '{print $1}')
+                value=$(echo "$line" | awk -F ':' '{print $2}'|base64)
+                echo "$name : $value"
+                # value64=$(echo "$line" | awk -F ':' '{print $2}'|base64)
+                # echo "$name : $value64"
+              done
