@@ -100,5 +100,8 @@ Lionel
 ## Lab 27
 **Terraform** : Precommits ([README](https://github.com/gurretl/labs/blob/main/Lab-27/README.md))
 
-## Lab 27
+## Lab 28
 **Terraform** : OpenTofu ([README](https://github.com/gurretl/labs/blob/main/Lab-28/README.md))
+
+## Lab 29
+**Terraform** : Retrieve Vargroups secrets in Azure DevOps ([README](https://github.com/gurretl/labs/blob/main/Lab-29/README.md))
