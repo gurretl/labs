@@ -105,3 +105,9 @@ Lionel
 
 ## Lab 29
 **Terraform** : Retrieve Vargroups secrets in Azure DevOps ([README](https://github.com/gurretl/labs/blob/main/Lab-29/README.md))
+
+## Lab 30
+**Azure DevOps** : Remove a commit from Azure DevOps Repos ([README](https://github.com/gurretl/labs/blob/main/Lab-30/README.md))
+
+## Lab 31
+**Azure DevOps** : Write Monthly Blog Posts With Azure DevOps ([README](https://github.com/gurretl/labs/blob/main/Lab-31/README.md))
