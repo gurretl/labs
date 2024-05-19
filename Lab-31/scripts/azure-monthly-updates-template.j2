@@ -1,0 +1,62 @@
+---
+title: "Azure DevOps & Cloud-Native Updates - {{ MonthYear }}"
+# menu_order: 1
+# post_status can be publish, draft, pending, future
+
+post_status: publish
+
+# post_excerpt: A WordPress excerpt is basically a summary of a longer article, often used as a replacement on the blog index and archives pages to avoid needing to display the full content of each post. By default, WordPress generates excerpts by simply selecting the first 55 words of a post
+
+# Thumbnail image (or featured imaged): ideal size: 800 * 418: this is the image that appears in summaries and on the internet when you put the link to the article. Note that for these types of images unfortunately LinkedIn does not support the webp format, so you have to stay with a jpg format
+featured_image: /_images/monthly/{{ RandomImage }}.webp
+
+# It is possible to force the creation date of the blog
+# post_date: 2023-01-28 19:00
+
+taxonomy:
+    category:
+    # available category defined in sokube Wordpress: Agile, Cloud, Cloud Native Application, DevOps, Security
+        - Azure
+    post_tag:
+        - DevOps
+        - Kubernetes
+        - AKS
+
+# Allow comments in blog post: open, closed
+comment_status: open
+
+# skip this file to not create an empty blog with the name of the folder
+# skip_file: yes
+
+# custom_fields:
+#     field1: value 1
+#     field2: value 2
+
+custom_fields:
+  meta_title: Azure DevOps & Cloud-Native Updates - {{ MonthYear }}
+  meta_description: Get last updates each month on Azure related to Cloud Native!
+
+description: Get all last updates related to Kubernetes, DevOps and containers on Azure Cloud.
+
+# ---------------------------------------------------------------------------------------
+---
+# Azure DevOps & Cloud-Native Updates - {{ MonthYear }}
+
+By <span class="text-secondary-500">[Lionel Gurret](https://www.linkedin.com/in/lionel-gurret/)</span>.
+
+## Introduction
+
+**Welcome to our Monthly Azure DevOps and Cloud Tech Updates Series!**
+
+Welcome to my monthly blog series where we bring you a concise roundup of significant Azure updates pertinent to DevOps, keeping you in the loop with the latest advancements.
+
+Let's check what's new!
+
+<span style="display:block;text-align:center">![](/_images/monthly/{{ RandomImage }}.webp)</span>
+## Updates
+{{ Links }}
+## Sources
+https://azure.microsoft.com/
+
+[Microsoft Dev Blog](devblogs.microsoft.com)
+[Azure Website](https://azure.microsoft.com?wt.mc_id=MVP_357193)
