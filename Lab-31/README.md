@@ -4,4 +4,4 @@ Author: Lionel Gurret
 Description : Write Monthly Blog Posts With Azure DevOps
 
 # YouTube Video
-[](Link)
+[https://youtu.be/HGJP5qWr0QQ](Link)
