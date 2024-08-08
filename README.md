@@ -111,3 +111,6 @@ Lionel
 
 ## Lab 31
 **Azure DevOps** : Write Monthly Blog Posts With Azure DevOps ([README](https://github.com/gurretl/labs/blob/main/Lab-31/README.md))
+
+## Lab 32
+**Azure AI** : My First App Using OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-32/README.md))
