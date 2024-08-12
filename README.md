@@ -114,3 +114,9 @@ Lionel
 
 ## Lab 32
 **Azure AI** : My First App Using OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-32/README.md))
+
+## Lab 33
+**Azure AI** : Azure AI scripts ([README](https://github.com/gurretl/labs/blob/main/Lab-33/README.md))
+
+## Lab 34
+**Azure AI** : How to leverage AI Search to use your own data with OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-34/README.md))
