@@ -10,7 +10,7 @@ import numpy as np
 
 # Import namespaces
 import azure.ai.vision as sdk
-
+ 
 def main():
     global cv_client
 
