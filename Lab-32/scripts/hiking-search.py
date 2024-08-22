@@ -34,7 +34,7 @@ def main():
 
         # Generate the prompt
         system_message = prompts.system_message
-        text = prompts.generate_prompt_new(kilometers, elevation_gain)
+        text = prompts.generate_prompt_search(kilometers, elevation_gain)
 
         # Configure your data source
         extension_config = dict(dataSources = [  

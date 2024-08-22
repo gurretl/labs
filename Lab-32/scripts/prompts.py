@@ -6,6 +6,12 @@ system_message = """
     Dont forget to provide the number of kilometers, the elevation gain and the description for each trail displayed as bullet points.
 """
 
+def generate_prompt_search(kilometers, elevation_gain):
+    prompt = f"""
+        As a trail runner, I am seeking your expertise in giving me three hiking trails that are close to {kilometers} kilometers long and have an elevation gain close to {elevation_gain} meters.
+    """
+    return prompt
+
 def generate_prompt(kilometers, elevation_gain, hikes):
     prompt = f"""
         As a trail runner, I am seeking your expertise in giving me three hiking trails that are close to {kilometers} kilometers long and have an elevation gain close to {elevation_gain} meters.
@@ -14,8 +20,3 @@ def generate_prompt(kilometers, elevation_gain, hikes):
     """
     return prompt
 
-def generate_prompt_search(kilometers, elevation_gain):
-    prompt = f"""
-        As a trail runner, I am seeking your expertise in giving me three hiking trails that are close to {kilometers} kilometers long and have an elevation gain close to {elevation_gain} meters.
-    """
-    return prompt
