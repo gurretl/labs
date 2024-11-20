@@ -120,3 +120,6 @@ Lionel
 
 ## Lab 34
 **Azure AI** : How to leverage AI Search to use your own data with OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-34/README.md))
+
+## Lab 35
+**Azure DevOps** : Write Monthly Blog Posts With Azure DevOps and Azure OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-35/README.md))

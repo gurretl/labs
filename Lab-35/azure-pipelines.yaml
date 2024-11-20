@@ -1,0 +1,68 @@
+trigger: none
+
+schedules:
+- cron: "0 6 1 * *"
+  displayName: Monthly 1st day at 6AM build
+  always: true
+  branches:
+   include:
+   - main
+
+parameters:
+- name: targetDate
+  displayName: Target Date (YYYY-MM-DD)
+  type: string
+  default: $(date -d "last month" +"%Y-%m-01")
+
+variables:
+- group: blogpost
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: CreateBlogPost
+  displayName: Create Blog Post
+  jobs:
+  - job: PullRepo
+    displayName: Pull GitHub Repo
+    steps:
+    - checkout: self
+    - task: CmdLine@2
+      inputs:
+        script: |
+          git config --global credential.helper store
+          git clone https://gurretl:$(github_pat)@github.com/gurretl/blog.git
+    - script: |
+        ls -a blog
+      displayName: List Repository Contents
+    - script: |
+        feature_branch="feature/blog-post-${{ parameters.targetDate }}"
+        git checkout -b $feature_branch
+        git pull origin $feature_branch --rebase
+        git push --set-upstream https://gurretl:$(github_pat)@github.com/gurretl/blog $feature_branch
+      displayName: Create Feature Branch
+      workingDirectory: blog
+    - task: CmdLine@2
+      displayName: Install Python Dependencies
+      inputs:
+        script: 'pip install feedparser'
+    - script: |
+        pip install openai
+        pip install python-dotenv
+      displayName: Install OpenAI and dotenv
+    - script: |
+        python scripts/rss_to_markdown.py ${{ parameters.targetDate }}
+      env:
+        AZURE_OAI_DEPLOYMENT: $(AZURE_OAI_DEPLOYMENT)
+        AZURE_OAI_ENDPOINT: $(AZURE_OAI_ENDPOINT)
+        AZURE_OAI_KEY: $(AZURE_OAI_KEY)
+      displayName: Generate Blog Post
+    - script: |
+        cd blog
+        git add .
+        git config --global user.email "thedevopsrunner@devazure.com"
+        git config --global user.name "Azure DevOps"
+        git commit -m "Update blog post for ${{ parameters.targetDate }}"
+        git push --set-upstream https://gurretl:$(github_pat)@github.com/gurretl/blog $feature_branch
+      displayName: Push Changes to Feature Branch
