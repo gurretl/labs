@@ -123,3 +123,6 @@ Lionel
 
 ## Lab 35
 **Azure DevOps** : Write Monthly Blog Posts With Azure DevOps and Azure OpenAI ([README](https://github.com/gurretl/labs/blob/main/Lab-35/README.md))
+
+## Lab 35
+**Azure AI** : How I Cloned David Goggins With Azure AI Services? ([README](https://github.com/gurretl/labs/blob/main/Lab-36/README.md))
