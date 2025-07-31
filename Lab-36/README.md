@@ -4,4 +4,4 @@ Author: Lionel Gurret
 Description : I cloned David Goggins!
 
 # YouTube Video
-[https://youtu.be/XXXX](xxxx)
+[https://www.youtube.com/watch?v=YoOtbhCdb5c](https://www.youtube.com/watch?v=YoOtbhCdb5c)

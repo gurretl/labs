@@ -7,4 +7,4 @@ Description : Using Azure AI Search to Use My Own Data!
 [https://microsoftlearning.github.io/mslearn-openai/Instructions/Exercises/06-use-own-data.html](Link)
 
 # YouTube Video
-[https://youtu.be/TO_COMPLETE](Link)
+[https://www.youtube.com/watch?v=WNg0OZYDECE](https://www.youtube.com/watch?v=WNg0OZYDECE)

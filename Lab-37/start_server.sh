@@ -1,6 +1,20 @@
 #!/bin/bash
 
-echo "🚀 Starting MCP Strava Server..."
+echo "🚀 Starting Strava MCP System..."
+echo "📦 Using configured Python environment..."
+echo "🏃‍♂️ MCP Version: Model Context Protocol"
+echo ""
+echo "🛠️  Available MCP Tools:"
+echo "   - get_activities: Retrieve Strava activities (2022-2025)"
+echo "   - get_activity_stats: Get summary statistics"
+echo ""
+echo "🔐 OAuth2 Flow: Automatic token management"
+echo "   • First run: Browser authorization will open automatically"
+echo "   • Future runs: Tokens refresh automatically"
+echo ""
+echo "🤖 Starting MCP-enabled Strava Chatbot..."
+echo "📡 The chatbot will automatically start the MCP server and connect to it."
+echo ""
 
 # Check if .env exists
 if [ ! -f .env ]; then
@@ -8,20 +22,29 @@ if [ ! -f .env ]; then
     exit 1
 fi
 
-# Use the configured Python environment
-echo "📦 Using configured Python environment..."
-PYTHON_CMD="/home/lionel/strava-mcp/.venv/bin/python"
-PIP_CMD="/home/lionel/strava-mcp/.venv/bin/pip"
-UVICORN_CMD="/home/lionel/strava-mcp/.venv/bin/uvicorn"
-
 # Check if virtual environment exists
-if [ ! -f "$PYTHON_CMD" ]; then
-    echo "❌ Virtual environment not found. Please run: configure_python_environment first"
+if [ -f ".venv/bin/python" ]; then
+    PYTHON_CMD=".venv/bin/python"
+elif [ -f "venv/bin/python" ]; then
+    PYTHON_CMD="venv/bin/python"
+else
+    echo "❌ Virtual environment not found. Please create it first:"
+    echo "python -m venv .venv"
+    echo "source .venv/bin/activate"
+    echo "pip install -r requirements.txt"
     exit 1
 fi
 
-echo "🌟 Starting FastAPI server..."
-echo "👉 Go to http://localhost:8000 to start"
-echo "👉 Then http://localhost:8000/authorize for Strava authorization"
+echo "📦 Using configured Python environment..."
+echo "� MCP Version: Model Context Protocol"
+echo ""
+echo "🛠️  Available MCP Tools:"
+echo "   - get_activities: Retrieve Strava activities (2024-2025)"
+echo "   - get_activity_stats: Get summary statistics"
+echo ""
+echo "🤖 Starting MCP-enabled Strava Chatbot..."
+echo "� The chatbot will automatically start the MCP server and connect to it."
+echo ""
 
-$UVICORN_CMD server:app --reload --host 0.0.0.0 --port 8000
+# Start the MCP chatbot (which will start its own MCP server)
+$PYTHON_CMD strava_chatbot.py

@@ -1,298 +1,282 @@
-# Strava MCP Server 🏃‍♂️
+# Strava MCP (Model Context Protocol) Integration
 
-A FastAPI-based server that provides a REST API interface to Strava activity data, featuring OAuth2 authentication and AI-powered chatbot integration.
+A simplified implementation of the Model Context Protocol (MCP) for Strava activity data, providing a chatbot interface to analyze your Strava activities using Azure OpenAI.
 
-## 📋 Table of Contents
+## Features
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Chatbot Integration](#chatbot-integration)
-- [Project Structure](#project-structure)
-- [Development](#development)
-- [Contributing](#contributing)
+- **MCP Protocol**: Simplified JSON-RPC implementation compatible with Python 3.8+
+- **Strava OAuth2**: Complete authentication flow with automatic token refresh
+- **Real-time Data**: Fetches actual Strava activities from 2022-2025 (including all 2024 data)
+- **AI Chat Interface**: Azure OpenAI GPT-4o integration for conversational analysis
+- **Historical Analysis**: Retrieves up to 400+ activities for comprehensive statistics
 
-## 🎯 Overview
+## Architecture
 
-This project consists of two main components:
-1. **FastAPI Backend Server** (`server.py`) - Handles Strava OAuth and provides REST API endpoints
-2. **AI Chatbot** (`strava_chatbot.py`) - Provides natural language interface to analyze your Strava activities
+The project consists of 4 core files implementing a clean MCP architecture:
 
-The system allows you to authenticate with Strava, retrieve your activity data (filtered for 2024-2025), and interact with an AI assistant to analyze your training patterns, performance trends, and statistics.
-
-## ✨ Features
-
-### Backend Server
-
-- 🔐 **OAuth2 Authentication** with Strava
-- 🔄 **Automatic Token Refresh** handling
-- 📊 **Activity Data Retrieval** with pagination support
-- 📅 **Date Filtering** (2024-2025 period for performance optimization)
-- ️ **Error Handling** and validation
-
-### AI Chatbot
-
-- 🤖 **Natural Language Processing** using Azure OpenAI GPT-4o
-- 📊 **Activity Analysis** and insights with real-time calculations
-- 📈 **Performance Tracking** and trend analysis
-- 🗣️ **Conversational Interface** for data exploration
-- 🧮 **Smart Statistics** - AI calculates metrics on demand
-
-## 🏗️ Architecture
-
-```
-┌─────────────────┐    HTTP/REST    ┌─────────────────┐    OAuth2    ┌─────────────────┐
-│   AI Chatbot    │ ──────────────> │  FastAPI Server │ ──────────> │   Strava API    │
-│ (strava_chatbot)│                 │   (server.py)   │             │                 │
-└─────────────────┘                 └─────────────────┘             └─────────────────┘
-         │                                   │
-         │                                   │
-         v                                   v
-┌─────────────────┐                 ┌─────────────────┐
-│  Azure OpenAI   │                 │ In-Memory Store │
-│     API         │                 │    (tokens)     │
-└─────────────────┘                 └─────────────────┘
-```
-
-## 📋 Prerequisites
-
-- Python 3.8+
-- Strava Developer Account
-- Azure OpenAI Account
-- Git
-
-## 🚀 Installation
-
-1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
-cd strava-mcp
+📁 strava-mcp/
+├── server.py           # MCP server - provides Strava tools via JSON-RPC
+├── strava_chatbot.py   # MCP client + chatbot interface with Azure OpenAI
+├── oauth2_manager.py   # OAuth2 authentication manager
+├── start_server.sh     # System launcher
+├── .env               # Environment variables (Strava & Azure credentials)
+└── requirements.txt   # Python dependencies
 ```
 
-2. **Create and activate virtual environment**
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+## Quick Start
 
-3. **Install dependencies**
-```bash
-pip install -r requirements.txt
-```
+### 1. Environment Setup
 
-## ⚙️ Configuration
-
-### 1. Strava Application Setup
-
-1. Go to [Strava Developers](https://developers.strava.com/)
-2. Create a new application
-3. Set Authorization Callback Domain to `localhost`
-4. Note your `Client ID` and `Client Secret`
-
-### 2. Azure OpenAI Setup
-
-1. Create an Azure OpenAI resource
-2. Deploy a GPT-4o model
-3. Get your API endpoint and key
-
-### 3. Environment Configuration
-
-Create a `.env` file in the project root:
+Create a `.env` file with your credentials:
 
 ```env
-# Strava Configuration
+# Strava OAuth2 Configuration  
 CLIENT_ID=your_strava_client_id
 CLIENT_SECRET=your_strava_client_secret
 
 # Azure OpenAI Configuration
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-AZURE_OPENAI_API_KEY=your_api_key
-AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o
-AZURE_OPENAI_API_VERSION=2024-02-15-preview
+AZURE_OPENAI_KEY=your_azure_openai_key
+AZURE_OPENAI_ENDPOINT=your_azure_endpoint
+AZURE_OPENAI_API_VERSION=2024-10-21
 ```
 
-## 🎮 Usage
+### 2. OAuth2 Setup (Required)
 
-### Starting the Server
+1. **Create a Strava App:**
+   - Go to [Strava Developers](https://www.strava.com/settings/api)
+   - Create a new application with:
+     - **Authorization Callback Domain**: `localhost`
+     - **Authorization Callback URL**: `http://localhost:8080/callback`
 
-1. **Start the FastAPI server**
-```bash
-uvicorn server:app --reload --port 8000
-```
+2. **OAuth2 Flow:**
+   - The system uses proper OAuth2 authorization code flow
+   - On first run, it will automatically open your browser for authorization
+   - Tokens are stored securely in `.strava_tokens.json` (excluded from git)
+   - Automatic refresh handling with 5-minute buffer
 
-2. **Authorize with Strava**
-   - Visit `http://localhost:8000/authorize`
-   - Complete the OAuth flow
-   - You'll be redirected back with authorization success
-
-3. **Test the API**
-```bash
-# Get activities
-curl http://localhost:8000/activities
-
-# Get statistics
-curl http://localhost:8000/stats
-```
-
-### Using the Chatbot
+### 3. Installation
 
 ```bash
-python strava_chatbot.py
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-Example interactions:
-- "How many activities did I do this year?"
-- "What's my average running pace?"
-- "Show me my longest bike ride"
-- "Compare my performance between 2024 and 2025"
+### 4. Launch
 
-## 🔗 API Endpoints
+```bash
+# Make launcher executable
+chmod +x start_server.sh
 
-### Authentication
-- `GET /` - Health check and welcome message
-- `GET /authorize` - Initiate Strava OAuth flow
-- `GET /callback` - Handle OAuth callback
-
-### Data Retrieval
-- `GET /activities` - Get all activities (2024-2025)
-
-### Response Examples
-
-**GET /activities**
-
-```json
-{
-  "total_activities": 267,
-  "activities": [
-    {
-      "name": "Morning Run",
-      "distance": 5000,
-      "moving_time": 1800,
-      "type": "Run",
-      "start_date": "2024-01-15T07:00:00Z",
-      "total_elevation_gain": 50,
-      "average_speed": 2.78
-    }
-  ],
-  "period": "2024-2025"
-}
+# Start the MCP system
+./start_server.sh
 ```
 
-## 🤖 Chatbot Integration
+**🔐 OAuth2 Flow (Automatic):**
 
-The chatbot uses Azure OpenAI's GPT-4o model with function calling to:
+- **First run:** The system will automatically detect no tokens and start OAuth2 authorization
+- **Browser opens:** Approve the authorization request
+- **Tokens saved:** System stores tokens securely in `.strava_tokens.json`
+- **Future runs:** Automatic token refresh, no manual intervention needed
 
-1. **Fetch Data** - Calls the FastAPI server to get activity data
-2. **Analyze** - Processes data to answer user questions and calculate statistics in real-time
-3. **Respond** - Provides insights in natural language
+**Note:** You do NOT need to run `oauth2_manager.py` manually - it's handled automatically by the system!
 
-### Key Functions
+## Testing & Validation
 
-- `get_strava_activities()` - Retrieves activity data from the server
-- `generate_response()` - Processes user queries with AI and calculates metrics on demand
+### 🧪 **System Tests**
 
-## 🎬 **Pour votre vidéo YouTube**
+**1. OAuth2 Authorization Test (Optional - for troubleshooting only):**
 
-**Structure simplifiée et plus claire :**
-- `GET /` → Health check
-- `GET /authorize` → OAuth flow  
-- `GET /callback` → Token exchange
-- `GET /activities` → **Seule source de données** (2024-2025)
+```bash
+# Test OAuth2 flow independently (only if issues occur)
+python oauth2_manager.py
+```
 
-**Avantages pour la vidéo :**
-- ✅ **Moins de code à expliquer** (API ultra-simple)
-- ✅ **Demo plus fluide** et directe
-- ✅ **Focus sur l'architecture principale**
-- ✅ **Le chatbot paraît plus intelligent** (il fait tous les calculs)
+**Note:** This is NOT required for normal usage - OAuth2 is handled automatically by `./start_server.sh`
 
-**Exemple de questions pour la démo :**
-- *"Combien d'activités j'ai fait cette année ?"* → L'IA compte et répond
-- *"Quelle est ma distance totale ?"* → L'IA calcule en temps réel
-- *"Compare mes performances 2024 vs 2025"* → L'IA analyse et compare
-
-Le chatbot devient le **vrai cerveau** du système ! 🧠
-
-## 📁 Project Structure
+Expected output:
 
 ```text
-strava-mcp/
-├── server.py              # FastAPI backend server (4 endpoints only!)
-├── strava_chatbot.py      # AI chatbot interface
-├── requirements.txt       # Python dependencies
-├── .env                   # Environment variables (create this)
-├── README.md             # This file
-├── start_server.sh       # Server startup script
-├── backup/               # Backup files
-│   ├── main.py
-│   └── strava_chatbot.py
-└── tests/                # Experimental MCP files
-    ├── mcp_server.py
-    └── chatbot_mcp.py
+🚀 Starting Strava OAuth2 authorization...
+🌐 Opening authorization URL: https://www.strava.com/oauth/authorize?...
+⏳ Waiting for authorization (please approve in your browser)...
+✅ OAuth2 authorization completed successfully!
+👋 Hello [Your Name]!
 ```
 
-## 🛠️ Development
-
-### Key Dependencies
-
-- **FastAPI 0.104.1** - Modern web framework for APIs
-- **Uvicorn 0.24.0** - ASGI server for FastAPI
-- **Requests 2.31.0** - HTTP library for API calls
-- **OpenAI 1.3.7** - Azure OpenAI integration
-- **Python-dotenv 1.0.0** - Environment variable management
-
-### Running in Development Mode
+**2. MCP Server Test:**
 
 ```bash
-# Start server with auto-reload
-uvicorn server:app --reload --port 8000
-
-# Run chatbot
-python strava_chatbot.py
+# Test MCP server directly (advanced)
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}}' | python server.py
 ```
 
-### Adding New Endpoints
+**3. Full Integration Test:**
 
-1. Add the endpoint function in `server.py`
-2. Add corresponding function in `strava_chatbot.py` if needed
-3. Update the chatbot's function definitions for AI integration
-4. Test the integration
+```bash
+# Complete system test
+./start_server.sh
+```
 
-**Note**: With the simplified architecture, most new features should be implemented in the chatbot's AI logic rather than new API endpoints.
+### 🔍 **Validation Checklist**
 
-## 🤝 Contributing
+**✅ Environment Setup:**
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- [ ] `.env` file exists with valid credentials
+- [ ] Virtual environment activated
+- [ ] All dependencies installed
 
-## 📝 Notes
+**✅ OAuth2 Configuration:**
 
-- **Token Storage**: Currently uses in-memory storage. For production, implement database storage.
-- **Date Filtering**: Limited to 2024-2025 for performance optimization.
-- **Rate Limiting**: Strava API has rate limits (100 requests per 15 minutes, 1000 per day).
-- **Security**: Ensure environment variables are properly secured in production.
-- **AI-First Architecture**: Statistics and analysis are calculated by the AI chatbot for maximum flexibility.
+- [ ] Strava app created with correct callback URL
+- [ ] CLIENT_ID and CLIENT_SECRET configured
+- [ ] OAuth2 flow completes successfully
+- [ ] `.strava_tokens.json` created with secure permissions (600)
 
-## 🔧 Troubleshooting
+**✅ System Functionality:**
 
-### Common Issues
+- [ ] MCP server starts without errors
+- [ ] Chatbot connects to MCP server
+- [ ] Azure OpenAI integration working
+- [ ] Real Strava data retrieved (test with "How many activities do I have?")
 
-1. **Token Expired**: The server automatically handles token refresh
-2. **OAuth Failed**: Check your Strava app configuration and callback URL
-3. **No Activities**: Ensure you have activities in the 2024-2025 period
-4. **Chatbot Not Responding**: Verify Azure OpenAI configuration
+### 🐛 **Troubleshooting**
 
-### Debug Mode
+**OAuth2 Issues:**
 
-Enable debug logging by setting `LOG_LEVEL=DEBUG` in your `.env` file.
+```bash
+# If authorization fails, delete tokens and retry
+rm .strava_tokens.json
+python oauth2_manager.py
+```
 
----
+**Python Environment Issues:**
 
-## Built with ❤️ for the Strava community
+```bash
+# Check Python version (requires 3.8+)
+python --version
+
+# Recreate virtual environment if needed
+rm -rf .venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Port Conflicts:**
+
+```bash
+# If port 8080 is busy, kill conflicting processes
+lsof -ti:8080 | xargs kill -9
+```
+
+### ✅ **Expected Test Results**
+
+When everything works correctly:
+
+1. **OAuth2 Test:** Browser opens → You authorize → Success message → API test passes
+2. **System Test:** MCP server starts → Chatbot connects → Ask "What's my longest activity?" → Real data returned
+3. **File Security:** `.strava_tokens.json` has 600 permissions → File excluded from git
+
+### 🚀 **Sample Test Session**
+
+```bash
+$ ./start_server.sh
+🚀 Starting Strava MCP System...
+📦 Using configured Python environment...
+🤖 Strava MCP Chatbot ready! Ask me about your activities...
+💡 Available via MCP: get_activities, get_activity_stats
+------------------------------------------------------------
+
+💬 Ask your question: What is my longest activity?
+🔍 Strava-related question detected, fetching MCP data...
+🛠️ Calling MCP tool: get_activities
+📈 Retrieved 250 activities...
+🛠️ Tool called: get_activity_stats
+
+🤖 Bot response:
+Your longest activity is "Swisspeaks 360" - a hike covering 413.18 km on 2024-09-07. 
+This was an impressive 68.8-hour adventure with 21,733m of elevation gain.
+
+Your other notable long activities include:
+- "Niesen" (31.8 km hike)  
+- "Jungfraujoch" (28.4 km hike)
+- "Matterhorn" (26.7 km hike)
+------------------------------------------------------------
+```
+
+## MCP Tools Available
+
+The server provides two main tools accessible via the MCP protocol:
+
+- **`get_activities`**: Retrieve Strava activities with filtering options
+- **`get_activity_stats`**: Get comprehensive activity statistics including longest activities
+
+## Usage Examples
+
+Once the chatbot is running, you can ask questions like:
+
+```bash
+💬 Ask your question: What is my longest activity on Strava?
+💬 Ask your question: How many activities did I do in 2024?
+💬 Ask your question: Show me my running statistics
+💬 Ask your question: What's my total distance this year?
+```
+
+The system will automatically:
+
+1. Detect Strava-related questions
+2. Call appropriate MCP tools to fetch real data
+3. Provide factual, data-driven responses without unnecessary motivational content
+
+## Technical Details
+
+### MCP Implementation
+
+- **Protocol**: Simplified JSON-RPC over subprocess stdin/stdout
+- **Compatibility**: Python 3.8+ (no modern syntax dependencies)
+- **Communication**: Asynchronous message handling with timeout protection
+
+### Strava Integration
+
+- **OAuth2**: Complete authentication flow with token refresh
+- **Data Range**: 2022-2025 to capture all historical activities
+- **Rate Limiting**: Intelligent pagination and request management
+- **Real Data**: Connects to actual Strava API, no demo/mock data
+
+### AI Integration
+
+- **Model**: Azure OpenAI GPT-4o
+- **Approach**: Factual analysis without unnecessary motivational suggestions
+- **Context**: Full activity data provided for accurate responses
+
+## Development
+
+### File Structure
+
+- `server.py`: Core MCP server handling Strava API integration
+- `strava_chatbot.py`: MCP client with subprocess management and AI integration
+- `oauth2_manager.py`: Complete OAuth2 flow with token management
+- `start_server.sh`: Simple launcher that activates venv and starts the chatbot
+
+### Key Classes
+
+- `StravaAPI`: Handles OAuth2 and API interactions
+- `OAuth2Manager`: Complete OAuth2 authorization code flow
+- `SimpleMCPClient`: MCP protocol client implementation
+- `SimpleMCPServer`: JSON-RPC server for tool execution
+
+## Requirements
+
+- Python 3.8+
+- Strava Developer Account (for OAuth2 credentials)
+- Azure OpenAI Account (for GPT-4o access)
+- Active internet connection for API calls
+
+## License
+
+This project demonstrates MCP protocol implementation for educational purposes.

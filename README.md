@@ -128,4 +128,7 @@ Lionel
 **Azure AI** : How I Cloned David Goggins With Azure AI Services? ([README](https://github.com/gurretl/labs/blob/main/Lab-36/README.md))
 
 ## Lab 37
-**Azure AI** : I Built My First Strava MCP Server in Minutes? ([README](https://github.com/gurretl/labs/blob/main/Lab-37/README.md))
+**Azure AI** : How I Built My First Strava MCP Server ([README](https://github.com/gurretl/labs/blob/main/Lab-37/README.md))
+
+## Lab 38
+**Azure Function** : How I Sync Two Storage Accounts with AzCopy ([README](https://github.com/gurretl/labs/blob/main/Lab-38/README.md))

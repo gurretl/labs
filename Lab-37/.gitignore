@@ -1,9 +1,42 @@
+# Environment and credentials - NEVER commit these!
 .env
+.env.local
+.env.production
+
+# Python virtual environments
 .venv
+venv/
+env/
+
+# Python compiled files
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.pdb
+
+# Database files
 *.db
 *.sqlite3
+
+# Log files
 *.log
+logs/
+
+# Test files (cleanup)
+tests/
+
+# OAuth2 tokens - NEVER commit these!
+.strava_tokens.json
+*.tokens.json
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

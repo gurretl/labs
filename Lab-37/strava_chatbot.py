@@ -1,169 +1,324 @@
-import os
-from openai import AzureOpenAI
-import requests
+#!/usr/bin/env python3
+"""
+Strava MCP Client - A client that uses a simplified MCP protocol to communicate with the Strava server.
+This client provides a chatbot interface that can call MCP tools to retrieve Strava data.
+Compatible with Python 3.8.
+"""
 
-# Configure Azure OpenAI client using environment variables
+import asyncio
+import json
+import os
+import subprocess
+import sys
+from typing import Optional, Dict, Any
+from dotenv import load_dotenv
+from openai import AzureOpenAI
+
+# Load environment variables
+load_dotenv()
+
+# Configure Azure OpenAI client
 client = AzureOpenAI(
     api_key=os.getenv("AZURE_OPENAI_KEY"),
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
     api_version=os.getenv("AZURE_OPENAI_API_VERSION")
 )
 
-def get_strava_activities():
-    """
-    Fetch all Strava activities from the local MCP server API.
-    Returns a tuple: (list of activities, total count).
-    Handles both the new and legacy response formats.
-    """
-    try:
-        print("🔄 Fetching Strava activities...")
-        response = requests.get("http://localhost:8000/activities", timeout=60)  # Longer timeout for large data
-        print(f"📡 Response status: {response.status_code}")
-
-        if response.status_code == 200:
-            data = response.json()
-            print(f"📊 Raw response type: {type(data)}")
-
-            # Handle new response format (dict with 'activities' key)
-            if isinstance(data, dict) and "activities" in data:
-                activities = data["activities"]
-                total_count = data.get("total_activities", 0)
-                period = data.get("period", "unknown")
-                print(f"✅ Found {total_count} activities for period {period}")
-                return activities, total_count
-            elif isinstance(data, list):
-                # Legacy format: direct list of activities
-                print(f"✅ Found {len(data)} activities (legacy format)")
-                return data, len(data)
-            else:
-                print(f"❌ Unexpected data format: {data}")
-                return None, 0
-        else:
-            print(f"❌ MCP Server Error: {response.status_code} - {response.text}")
-            return None, 0
-    except Exception as e:
-        print(f"❌ MCP Server Error: {str(e)}")
-        return None, 0
-
-def generate_response(user_input):
-    """
-    Generate a chatbot response to the user's question, using Strava activity data if relevant.
-    If the question is about Strava, fetches activities and provides all data to the LLM for analysis.
-    """
-    context = ""
-
-    # Detect if the user's question is about Strava or activities
-    if "strava" in user_input.lower() or "activity" in user_input.lower() or "sport" in user_input.lower():
-        print("🔍 Strava-related question detected, fetching data...")
-        activities, total_count = get_strava_activities()
-
-        print(f"📈 Retrieved: {total_count} activities")
-
-        if activities and isinstance(activities, list) and len(activities) > 0:
-            print(f"✅ Processing {len(activities)} activities...")
-
-            # Compute general statistics (no sorting or advanced analysis here)
-            total_distance = sum(a.get('distance', 0) for a in activities) / 1000  # in km
-            total_time = sum(a.get('moving_time', 0) for a in activities) / 3600  # in hours
-
-            print(f"📊 Stats: {total_distance:.1f}km, {total_time:.1f}h")
-
-            # Count activity types
-            activity_types = {}
-            for a in activities:
-                activity_type = a.get('type', 'Unknown')
-                activity_types[activity_type] = activity_types.get(activity_type, 0) + 1
-
-            print(f"🏃 Activity types: {activity_types}")
-
-            # Prepare raw activity data for the LLM (all activities, unsorted)
-            activities_data = []
-            for i, a in enumerate(activities):
+class SimpleMCPClient:
+    """Simple MCP client that communicates with the Strava server via subprocess"""
+    
+    def __init__(self):
+        self.server_process = None
+        self.available_tools = []
+    
+    async def start_server(self):
+        """Start the MCP server as a subprocess"""
+        try:
+            print("🚀 Starting MCP Strava Server...")
+            # Start the server with Python from venv
+            python_path = ".venv/bin/python" if os.path.exists(".venv/bin/python") else "python3"
+            self.server_process = await asyncio.create_subprocess_exec(
+                python_path, "server.py",
+                stdin=asyncio.subprocess.PIPE,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            print("✅ MCP Server started")
+            
+            # Initialize and get available tools
+            await self.initialize()
+            return True
+            
+        except Exception as e:
+            print(f"❌ Failed to start MCP server: {e}")
+            return False
+    
+    async def initialize(self):
+        """Initialize the session and discover available tools"""
+        try:
+            # Send initialization request
+            init_request = {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "initialize",
+                "params": {
+                    "protocolVersion": "simple-mcp-1.0",
+                    "capabilities": {"tools": True},
+                    "clientInfo": {"name": "strava-chatbot", "version": "1.0.0"}
+                }
+            }
+            
+            response = await self._send_request(init_request)
+            if response and "result" in response:
+                print("🔧 MCP session initialized")
+            
+            # List available tools
+            tools_request = {
+                "jsonrpc": "2.0",
+                "id": 2,
+                "method": "tools/list",
+                "params": {}
+            }
+            
+            response = await self._send_request(tools_request)
+            if response and "result" in response and "tools" in response["result"]:
+                self.available_tools = response["result"]["tools"]
+                print(f"🛠️ Available tools: {[tool['name'] for tool in self.available_tools]}")
+            
+        except Exception as e:
+            print(f"❌ MCP initialization failed: {e}")
+    
+    async def call_tool(self, tool_name: str, arguments: Optional[Dict[str, Any]] = None) -> Optional[str]:
+        """Call a tool via simplified MCP protocol"""
+        try:
+            if arguments is None:
+                arguments = {}
+            
+            request = {
+                "jsonrpc": "2.0",
+                "id": 3,
+                "method": "tools/call",
+                "params": {
+                    "name": tool_name,
+                    "arguments": arguments
+                }
+            }
+            
+            print(f"🛠️ Calling MCP tool: {tool_name}")
+            response = await self._send_request(request)
+            
+            if response and "result" in response:
+                content = response["result"].get("content", [])
+                if content and len(content) > 0:
+                    return content[0].get("text", "")
+            elif response and "error" in response:
+                error_msg = response["error"].get("message", "Unknown error")
+                print(f"❌ Tool error: {error_msg}")
+                return f"Error: {error_msg}"
+            
+            return None
+            
+        except Exception as e:
+            print(f"❌ Tool call failed: {e}")
+            return f"Error calling tool {tool_name}: {str(e)}"
+    
+    async def _send_request(self, request: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Send a JSON-RPC request to the MCP server"""
+        try:
+            if not self.server_process:
+                raise Exception("MCP server not started")
+            
+            # Send request
+            request_str = json.dumps(request) + "\n"
+            self.server_process.stdin.write(request_str.encode())
+            await self.server_process.stdin.drain()
+            
+            # Read response with buffer for large messages
+            response_lines = []
+            while True:
                 try:
-                    distance_km = a.get('distance', 0) / 1000
-                    time_hours = a.get('moving_time', 0) / 3600
-                    elevation = a.get('total_elevation_gain', 0)
-                    activity_data = {
-                        "name": a.get('name', 'Unknown name'),
-                        "type": a.get('type', 'Unknown'),
-                        "distance_km": round(distance_km, 1),
-                        "time_hours": round(time_hours, 1),
-                        "elevation_gain_m": elevation,
-                        "start_date": a.get('start_date', '')
-                    }
-                    activities_data.append(activity_data)
+                    # Read with a timeout to avoid hanging
+                    response_line = await asyncio.wait_for(
+                        self.server_process.stdout.readline(), 
+                        timeout=30.0
+                    )
+                    
+                    if not response_line:
+                        break
+                        
+                    line_str = response_line.decode().strip()
+                    if line_str:
+                        # Try to parse as complete JSON
+                        try:
+                            return json.loads(line_str)
+                        except json.JSONDecodeError:
+                            # If it's not complete JSON, accumulate lines
+                            response_lines.append(line_str)
+                            # Try to parse accumulated lines
+                            combined = ''.join(response_lines)
+                            try:
+                                return json.loads(combined)
+                            except json.JSONDecodeError:
+                                continue
+                                
+                except asyncio.TimeoutError:
+                    print("⚠️ Timeout waiting for server response", file=sys.stderr)
+                    break
+            
+            # If we accumulated lines but couldn't parse, try once more
+            if response_lines:
+                try:
+                    combined = ''.join(response_lines)
+                    return json.loads(combined)
+                except json.JSONDecodeError as e:
+                    print(f"❌ Failed to parse JSON response: {e}", file=sys.stderr)
+                    print(f"Response preview: {combined[:200]}...", file=sys.stderr)
+            
+            return None
+            
+        except Exception as e:
+            print(f"❌ MCP communication error: {e}")
+            return None
+    
+    async def stop_server(self):
+        """Stop the MCP server"""
+        if self.server_process:
+            try:
+                self.server_process.terminate()
+                await self.server_process.wait()
+                print("🛑 MCP Server stopped")
+            except Exception as e:
+                print(f"❌ Error stopping server: {e}")
 
-                    if i < 5:  # Log only the first 5 for debug
-                        print(f"  Activity {i+1}: {activity_data['name']} - {distance_km:.1f}km")
+# Global MCP client instance
+mcp_client = SimpleMCPClient()
 
-                except Exception as e:
-                    print(f"❌ Error parsing activity {i+1}: {str(e)}")
+async def get_strava_activities_via_mcp(limit: int = 50, sport_type: Optional[str] = None):
+    """Get Strava activities using MCP tools"""
+    try:
+        arguments = {"limit": limit}  # Reduced limit to avoid communication issues
+        if sport_type:
+            arguments["sport_type"] = sport_type
+        
+        result = await mcp_client.call_tool("get_activities", arguments)
+        if result:
+            return json.loads(result)
+        return None
+        
+    except Exception as e:
+        print(f"❌ Error getting activities via MCP: {e}")
+        return None
 
-            # Build context for the LLM with all raw data and clear instructions
-            context = f"""Here is the user's Strava data (2024-2025):
+async def get_strava_stats_via_mcp():
+    """Get Strava statistics using MCP tools"""
+    try:
+        result = await mcp_client.call_tool("get_activity_stats")
+        if result:
+            return json.loads(result)
+        return None
+        
+    except Exception as e:
+        print(f"❌ Error getting stats via MCP: {e}")
+        return None
 
-SUMMARY STATISTICS:
-- Total activities: {total_count}
-- Total distance: {total_distance:.1f} km
-- Total time: {total_time:.1f} hours
-- Activity types: {', '.join([f"{k}: {v}" for k, v in activity_types.items()])}
-
-ALL ACTIVITIES DATA (sorted by date, MOST RECENT FIRST):
-{activities_data}
-
-IMPORTANT NOTES:
-- Activities are sorted by date with the MOST RECENT activity FIRST (index 0)
-- When user asks for "last activity" or "most recent", it's the FIRST item in the list
-- All dates are in ISO format (YYYY-MM-DDTHH:MM:SSZ)
-- Please analyze this data carefully to answer the user's question
-"""
-        else:
-            print("❌ No activities found or error in data")
-            context = "Unable to retrieve Strava activities or no activities found.\n"
-
-    # Build the prompt for the LLM
+async def generate_response(user_input: str) -> str:
+    """Generate a chatbot response using MCP tools"""
+    
+    # Build the system message with available tools
+    available_tools_str = ", ".join([tool["name"] for tool in mcp_client.available_tools])
+    
     messages = [
         {
             "role": "system",
             "content": (
-                "You are a motivational Strava sports assistant. 🏃‍♂️ "
-                "When the user asks about their Strava activities, you need to analyze the provided data "
-                "to answer their questions accurately. Look through ALL the activities data to find "
-                "the correct information (longest, shortest, fastest, etc.). "
-                "Provide analysis, encouragement, and improvement suggestions. "
-                "Use emojis to make your responses more engaging! 💪"
+                f"You are a factual Strava data assistant with access to MCP tools. 📊\n"
+                f"Available tools: {available_tools_str}\n"
+                f"When users ask about their Strava activities, analyze the data and provide direct, factual answers.\n"
+                f"Be concise and focus only on answering what was asked.\n"
+                f"Do not add motivational suggestions unless specifically requested.\n"
+                f"Present data clearly with relevant statistics.\n\n"
+                f"If the user asks about activities, the data will be provided automatically."
             )
-        },
-        {
-            "role": "user",
-            "content": f"{context}Question: {user_input}"
         }
     ]
+    
+    # Check if this is a Strava-related question
+    if any(keyword in user_input.lower() for keyword in ["strava", "activity", "activities", "sport", "run", "ride", "bike", "workout"]):
+        print("🔍 Strava-related question detected, fetching MCP data...")
+        
+        # Get activities data via MCP protocol
+        activities_data = await get_strava_activities_via_mcp()
+        stats_data = await get_strava_stats_via_mcp()
+        
+        if activities_data and stats_data:
+            context = f"""Here is the user's Strava data retrieved via MCP protocol:
 
+SUMMARY STATISTICS:
+{json.dumps(stats_data, indent=2)}
+
+RECENT ACTIVITIES DATA:
+{json.dumps(activities_data, indent=2)}
+
+The data is sorted by date with the MOST RECENT activity FIRST.
+Please analyze this data to answer the user's question accurately.
+"""
+            messages.append({
+                "role": "user",
+                "content": f"{context}\n\nUser Question: {user_input}"
+            })
+        else:
+            messages.append({
+                "role": "user", 
+                "content": f"Unable to retrieve Strava data via MCP protocol. User Question: {user_input}"
+            })
+    else:
+        # Non-Strava question
+        messages.append({
+            "role": "user",
+            "content": user_input
+        })
+    
     try:
-        # Call the Azure OpenAI chat completion API
+        # Call Azure OpenAI
         completion = client.chat.completions.create(
             model="gpt-4o",
             messages=messages
         )
         return completion.choices[0].message.content
+        
     except Exception as e:
         return f"Error calling Azure OpenAI: {str(e)}"
 
+async def main():
+    """Main chatbot loop using simplified MCP protocol"""
+    print("🚀 Strava MCP Chatbot starting...")
+    
+    # Start MCP server
+    if not await mcp_client.start_server():
+        print("❌ Failed to start MCP server. Exiting.")
+        return
+    
+    try:
+        print("🤖 Strava MCP Chatbot ready! Ask me about your activities...")
+        print("💡 Available via MCP: get_activities, get_activity_stats")
+        print("-" * 60)
+        
+        while True:
+            user_input = input("💬 Ask your question: ")
+            if user_input.lower() in ['quit', 'exit', 'bye']:
+                print("👋 Goodbye! Keep training! 💪")
+                break
+            
+            response = await generate_response(user_input)
+            print("\n🤖 Bot response:")
+            print(response)
+            print("-" * 60)
+    
+    finally:
+        # Always stop the MCP server
+        await mcp_client.stop_server()
+
 if __name__ == "__main__":
-    """
-    Main interactive loop for the Strava chatbot.
-    Continuously prompts the user for questions and prints the AI's response.
-    Type 'quit', 'exit', or 'bye' to stop the chatbot.
-    """
-    print("🚀 Strava Chatbot started! Ask me about your activities...")
-    print("-" * 50)
-    while True:
-        user_input = input("💬 Ask your question: ")
-        if user_input.lower() in ['quit', 'exit', 'bye']:
-            print("👋 Goodbye! Keep training! 💪")
-            break
-        response = generate_response(user_input)
-        print("\n🤖 Bot response:")
-        print(response)
-        print("-" * 50)
+    asyncio.run(main())
+
+
