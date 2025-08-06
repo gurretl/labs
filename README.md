@@ -132,3 +132,6 @@ Lionel
 
 ## Lab 38
 **Azure Function** : How I Sync Two Storage Accounts with AzCopy ([README](https://github.com/gurretl/labs/blob/main/Lab-38/README.md))
+
+## Lab 39
+**Azure DevOps** : Script to recover a deleter repository ([README](https://github.com/gurretl/labs/blob/main/Lab-39/README.md))
