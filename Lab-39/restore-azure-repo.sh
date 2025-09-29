@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Script to restore a deleted Azure DevOps repository
-# Uses Azure DevOps REST API to list and restore deleted repositories
+# Uses Azure DevOps REST API to list and restore delete# Create temporary file with filtered repositories
+TEMP_FILE="/tmp/azure_repos_$$"
+echo "$FILTERED_RESPONSE" | jq -r '.value[] | "\(.name)|\(.id)|\(.project.name)"' > "$TEMP_FILE"epositories
 
 # Colors for display
 RED='\033[0;31m'
@@ -99,8 +101,14 @@ if echo "$RESPONSE" | jq -e '.message' > /dev/null 2>&1; then
     exit 1
 fi
 
-# Get count
-COUNT=$(echo "$RESPONSE" | jq -r '.count // 0')
+# Filter repositories for the current project only
+FILTERED_RESPONSE=$(echo "$RESPONSE" | jq --arg project "$PROJECT" '{
+    count: ([.value[] | select(.project.name == $project)] | length),
+    value: [.value[] | select(.project.name == $project)]
+}')
+
+# Get count from filtered response
+COUNT=$(echo "$FILTERED_RESPONSE" | jq -r '.count // 0')
 
 if [ "$COUNT" -eq 0 ]; then
     log_warning "No deleted repositories found."

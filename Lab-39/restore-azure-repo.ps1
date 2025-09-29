@@ -106,23 +106,25 @@ try {
     exit 1
 }
 
-# Check if we have repositories
-$count = if ($response.count) { $response.count } else { 0 }
-if ($count -eq 0 -or $response.value.Count -eq 0) {
-    Write-Warning "No deleted repositories found."
+# Filter repositories for the current project only
+$filteredRepos = $response.value | Where-Object { $_.project.name -eq $project }
+$count = $filteredRepos.Count
+
+if ($count -eq 0) {
+    Write-Warning "No deleted repositories found for project '$project'."
     exit 0
 }
 
 # Display repositories
 Write-Host ""
-Write-Info "Deleted repositories found ($count):"
+Write-Info "Deleted repositories found for project '$project' ($count):"
 Write-Host "==================================================" -ForegroundColor $Colors.White
 Write-Host ("{0,-3} | {1,-30} | {2,-36} | {3}" -f "No", "Repository Name", "ID", "Deletion Date") -ForegroundColor $Colors.White
 Write-Host "==================================================" -ForegroundColor $Colors.White
 
 $repositories = @()
 $index = 1
-foreach ($repo in $response.value) {
+foreach ($repo in $filteredRepos) {
     $formattedDate = ($repo.deletedDate -split 'T')[0]
     $repoName = if ($repo.name.Length -gt 30) { $repo.name.Substring(0, 30) } else { $repo.name }
     Write-Host ("{0,-3} | {1,-30} | {2,-36} | {3}" -f $index, $repoName, $repo.id, $formattedDate)

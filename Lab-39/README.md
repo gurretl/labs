@@ -140,6 +140,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
    - Ensure you have access to the specified project
 
 3. **"No deleted repositories found"**
+   - The scripts automatically filter to show only repositories from the specified project
+   - Repositories from other projects in the organization are excluded for security
    - All repositories may have already been restored or permanently deleted
    - Check that you're looking in the correct project
 
