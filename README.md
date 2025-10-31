@@ -138,3 +138,6 @@ Lionel
 
 ## Lab 40
 **Terraform** : Terraform Actions lab ([README](https://github.com/gurretl/labs/blob/main/Lab-40/README.md))
+
+## Lab 41
+**CODEX vs CLAUDE** : Pac-man game with Codex and Claude Sonnet ([README](https://github.com/gurretl/labs/blob/main/Lab-41/README.md))
